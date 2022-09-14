@@ -1,4 +1,4 @@
-import { Main } from "..page";
+import { Main } from "../page";
 import { ReactElement } from "react";
 
 export interface IRoute {
@@ -15,7 +15,7 @@ export const PATH = {
 export const routeList: IRoute[] = [
   {
     id: "main",
-    path: PATH.MAIN,
+    path: "/",
     page: Main,
   },
 ];
