@@ -16,3 +16,8 @@ export const modalGatherState = atom<modalGather>({
     mapModal: false,
   },
 });
+
+export const playerPositionForCatState = atom({
+  key: "playerPositionForCatState",
+  default: [0, 0, 0],
+});

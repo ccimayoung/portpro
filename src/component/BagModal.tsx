@@ -31,44 +31,14 @@ const BoxWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 1000px;
-  height: 1000px;
-  /* width: 70%;
-  height: 70%; */
-  top: 25%;
-  border-radius: 12px;
-  animation: ${Slide} 0.6s ease;
-  overflow-y: auto;
-  overflow-x: hidden;
-  background-image: url("/assets/탐험일기 설명서.png");
-  background-repeat: no-repeat;
-  background-size: 100%;
-  background-position: center;
-  overflow-y: scroll;
-
-  ::-webkit-scrollbar {
-    display: none;
-  }
-  z-index: 5;
-`;
-const OldPaperWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 1000px;
-  max-height: 1000px;
-  width: 70%;
+  width: 20.9375rem;
   height: 70%;
   top: 25%;
   border-radius: 12px;
+  background-color: #ffffff;
   animation: ${Slide} 0.6s ease;
   overflow-y: auto;
   overflow-x: hidden;
-  background-image: url("/assets/탐험일기 설명서.png");
-  background-repeat: no-repeat;
-  background-size: 100%;
-  background-position: center;
-  overflow-y: scroll;
 
   ::-webkit-scrollbar {
     display: none;
@@ -76,14 +46,14 @@ const OldPaperWrap = styled.div`
   z-index: 5;
 `;
 
-export const QuestModal = () => {
+export const BagModal = () => {
   const [modalGather, setmodalGather] = useRecoilState(modalGatherState);
 
   return (
     <>
-      {modalGather.questModal && (
+      {modalGather.bagModal && (
         <ModalBackground
-          onClick={() => setmodalGather({ ...modalGather, questModal: false })}
+          onClick={() => setmodalGather({ ...modalGather, bagModal: false })}
         >
           <BoxWrap
             onClick={(e) => {

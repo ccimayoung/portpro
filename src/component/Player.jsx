@@ -6,11 +6,16 @@ import * as THREE from "three";
 import dat from "dat.gui";
 import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls";
 import Keycontroller from "../function/Keycontroller";
+import { useRecoilState } from "recoil";
+import { playerPositionForCatState } from "../recoil/store";
 
 export function PlayerMesh(props) {
   const { canvas } = props;
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
+  // const [playerPositionForCat, setPlayerPositionForCat] = useRecoilState(
+  //   playerPositionForCatState
+  // );
 
   // load GLTF
   const gltf = useLoader(GLTFLoader, "/캐릭터.glb");
@@ -35,16 +40,20 @@ export function PlayerMesh(props) {
     });
   }
 
-  // const { gl, camera } = useThree();
-  // const renderer = gl;
-  // renderer.setSize(window.innerWidth, window.innerHeight);
-  // renderer.setPixelRatio(window.devicePixelRatio > 1 ? 2 : 1);
-
-  // camera.fov = 75;
-  // camera.aspect = window.innerWidth / window.innerHeight;
-  // camera.near = 0.1;
-  // camera.far = 1000;
-  // console.log(camera);
+  const { gl, camera } = useThree();
+  const renderer = gl;
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(window.devicePixelRatio > 1 ? 2 : 1);
+  camera.fov = 75;
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.near = 0.1;
+  camera.far = 1000;
+  camera.zoom = 0.8;
+  console.log(camera);
+  const controls = new PointerLockControls(camera, renderer.domElement);
+  controls.domElement.addEventListener("click", () => {
+    controls.lock();
+  });
 
   const keyController = new Keycontroller();
 
@@ -56,14 +65,32 @@ export function PlayerMesh(props) {
   // }
 
   useThree(({ camera }) => {
-    camera.position.set(playerMesh.position.x, playerMesh.position.y + 50);
+    camera.position.set(
+      playerMesh.position.x,
+      playerMesh.position.y + 35,
+      playerMesh.position.z + 80
+    );
+    // camera.lookAt(
+    //   playerMesh.position.x,
+    //   playerMesh.position.y,
+    //   playerMesh.position.z
+    // );
+    // camera.zoom = 0.2;
+    camera.updateProjectionMatrix();
   });
   let jump = false;
   useFrame((state, delta, frame) => {
-    // console.log(state.camera);
-    if (mixer) mixer.update(delta);
+    const cameraPosition = new THREE.Vector3(
+      playerMesh.position.x,
+      playerMesh.position.y + 35,
+      playerMesh.position.z + 80
+    );
+    // camera.lookAt(playerMesh.position);
+    camera.position.x = cameraPosition.x + playerMesh.position.x; //맞춰서 카메라 이동
 
-    // mesh.rotation.x = state.clock.getElapsedTime();
+    camera.position.z = cameraPosition.z + playerMesh.position.z * 25;
+    // console.log(state.camera);w
+    if (mixer) mixer.update(delta);
 
     if (keyController.keys.KeyW || keyController.keys.ArrowUp) {
       playerMesh.position.z -= 0.01;
@@ -104,13 +131,15 @@ export function PlayerMesh(props) {
       }
       jump = false;
     }
-    state.camera.position.z = playerMesh.position.z * 25 + 120;
+    // state.camera.position.z = playerMesh.position.z * 25 + 120;
   });
 
   // gltf 로더는 시간이 걸리는데 draw함수는 바로 실행되서 오류 발생. 그래서 if문 사용
   const gui = new dat.GUI();
   // gui.add(mesh.position, "y", -5, 5, 0.01).name("y 위치"); // 한줄로 쓸때
   // gui.add(camera.position, "x", -10, 10, 1).name("카메라 X");
+  // gui.add(camera.position, "Y", -10, 10, 1).name("카메라 Y");
+  // gui.add(camera.position, "Z", -10, 10, 1).name("카메라 Z");
 
   return (
     <>
@@ -125,44 +154,3 @@ export function PlayerMesh(props) {
     </>
   );
 }
-
-// export default function Model({ ...props }) {
-//   const group = useRef();
-//   const { nodes, materials } = useGLTF("/models/adventure_map.glb");
-//   return (
-//     <group ref={group} {...props} dispose={null}>
-//       <primitive object={nodes.Hips} />
-//       <roadMap
-//         geometry={nodes.Wolf3D_Body.geometry}
-//         material={materials.Wolf3D_Body}
-//         skeleton={nodes.Wolf3D_Body.skeleton}
-//       />
-//     </group>
-//   );
-// }
-
-// useGLTF.preload("/model.glb");
-
-// const Model = (props) => {
-//   const model = useLoader(GLTFLoader, props.path);
-//   console.log(model);
-//   return (
-//     //<primitive>
-//     null
-//   );
-// };
-
-// export default Model;
-
-// const RoadMap = (info) => {
-
-//   return (
-
-//     info.gltfLoader.load(info.modelSrc, (glb) => {
-//       info.modelMesh = glb.scene.children[0];
-//       info.modelMesh.castShadow = true;
-//       info.modelMesh.position.set(this.x, this.y, this.z);
-//       info.scene.add(this.modelMesh);
-//     });
-//   )
-// }

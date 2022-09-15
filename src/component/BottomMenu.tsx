@@ -7,8 +7,8 @@ export const ImgBox = styled.div`
   height: 100px;
   background: #ffffffd3;
   position: fixed;
-  right: 2%;
-  margin: -150px 0 0 0;
+  right: 1%;
+  margin: -115px 0 0 0;
   flex-direction: row;
   align-items: center;
   justify-content: center;
