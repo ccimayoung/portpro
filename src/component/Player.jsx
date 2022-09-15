@@ -82,13 +82,13 @@ export function PlayerMesh(props) {
   useFrame((state, delta, frame) => {
     const cameraPosition = new THREE.Vector3(
       playerMesh.position.x,
-      playerMesh.position.y + 35,
+      playerMesh.position.y * 25 + 35,
       playerMesh.position.z + 80
     );
     // camera.lookAt(playerMesh.position);
     camera.position.x = cameraPosition.x + playerMesh.position.x; //맞춰서 카메라 이동
 
-    camera.position.z = cameraPosition.z + playerMesh.position.z * 25;
+    camera.position.z = cameraPosition.z + playerMesh.position.z * 24;
     // console.log(state.camera);w
     if (mixer) mixer.update(delta);
 

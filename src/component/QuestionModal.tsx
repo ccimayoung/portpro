@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import { useRecoilState } from "recoil";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { modalGatherState } from "../recoil/store";
 
 const Slide = keyframes`
@@ -31,12 +31,12 @@ const BoxWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 800px;
-  height: 800px;
+  width: 900px;
+  height: 900px;
   animation: ${Slide} 0.6s ease;
   overflow-y: auto;
   overflow-x: hidden;
-  background-image: url("/assets/suitcase.png");
+  background-image: url("/assets/탐험일기 설명서.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
@@ -48,50 +48,38 @@ const BoxWrap = styled.div`
   z-index: 5;
 `;
 
-export const QuitBox = styled.div`
-  width: 60px;
-  height: 60px;
-  top: 55px;
-  right: 50px;
-  border: 3px solid black;
-  border-radius: 50px;
-  background-color: white;
-  position: absolute;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 export const QuitImg = styled.img`
   width: 50px;
   height: 50px;
+  top: 55px;
+  right: 50px;
+  position: absolute;
   cursor: pointer;
 `;
 
-export const BagModal = () => {
+export const QuestionModal = () => {
   const [modalGather, setmodalGather] = useRecoilState(modalGatherState);
 
   return (
     <>
-      {modalGather.bagModal && (
+      {modalGather.questionModal && (
         <ModalBackground
-          onClick={() => setmodalGather({ ...modalGather, bagModal: false })}
+          onClick={() =>
+            setmodalGather({ ...modalGather, questionModal: false })
+          }
         >
           <BoxWrap
             onClick={(e) => {
               e.stopPropagation();
             }}
           >
-            <QuitBox>
-              <QuitImg
-                src="/assets/reject.png"
-                alt="닫음"
-                onClick={() => {
-                  setmodalGather({ ...modalGather, questionModal: false });
-                }}
-              />
-            </QuitBox>
+            <QuitImg
+              src="/assets/reject.png"
+              alt="닫음"
+              onClick={() => {
+                setmodalGather({ ...modalGather, questionModal: false });
+              }}
+            />
           </BoxWrap>
         </ModalBackground>
       )}

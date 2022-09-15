@@ -15,6 +15,7 @@ import { PlayerMesh } from "../component/Player";
 import { BottomMenu } from "../component/BottomMenu";
 import { QuestModal } from "../component/QuestModal";
 import { BagModal } from "../component/BagModal";
+import { QuestionModal } from "../component/QuestionModal";
 
 function RoadMesh(props: JSX.IntrinsicElements["mesh"]) {
   // load GLTF
@@ -68,6 +69,7 @@ export const Main = () => {
       </Canvas>
       <BottomMenu />
       <QuestModal />
+      <QuestionModal />
       <BagModal />
     </>
   );
