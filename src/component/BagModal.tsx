@@ -88,7 +88,7 @@ export const BagModal = () => {
                 src="/assets/reject.png"
                 alt="닫음"
                 onClick={() => {
-                  setmodalGather({ ...modalGather, questionModal: false });
+                  setmodalGather({ ...modalGather, bagModal: false });
                 }}
               />
             </QuitBox>

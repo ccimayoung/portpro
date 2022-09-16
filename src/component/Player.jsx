@@ -25,12 +25,11 @@ export function PlayerMesh(props) {
   const clock = new THREE.Clock();
   const delta = clock.getDelta();
   const mixer = new THREE.AnimationMixer(playerMesh);
-  // console.log(gltf.scene.traverse);
+  console.log(gltf.animations);
   if (mixer) {
     actions[0] = mixer.clipAction(gltf.animations[0]);
-    actions[1] = mixer.clipAction(gltf.animations[1]);
-    actions[1].setEffectiveTimeScale(0.6);
-    actions[1].play();
+    actions[0].setEffectiveTimeScale(0.6);
+    actions[0].play();
     console.log(actions);
     gltf.scene.traverse((child) => {
       // glb 그림자 설정
