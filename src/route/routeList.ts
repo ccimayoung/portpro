@@ -1,6 +1,6 @@
 import { Main } from "../page";
 import { ReactElement } from "react";
-import { Player } from "../component/Mesh/Player";
+import Player from "../component/Mesh/Player";
 
 export interface IRoute {
   id: string;
@@ -19,10 +19,5 @@ export const routeList: IRoute[] = [
     id: "main",
     path: "/",
     page: Main,
-  },
-  {
-    id: "player",
-    path: "/player",
-    page: Player,
   },
 ];

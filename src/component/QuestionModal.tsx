@@ -2,6 +2,7 @@ import styled, { keyframes } from "styled-components";
 import { useRecoilState } from "recoil";
 import React, { useState, useRef } from "react";
 import { modalGatherState } from "../recoil/store";
+import Keycontroller from "../function/Keycontroller";
 
 const Slide = keyframes`
     0% {

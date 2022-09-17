@@ -1,6 +1,10 @@
 import React, { MutableRefObject, Ref, useRef } from "react";
 import styled, { keyframes } from "styled-components";
-import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  useRecoilBridgeAcrossReactRoots_UNSTABLE,
+  useRecoilState,
+  useRecoilValue,
+} from "recoil";
 import { Suspense, useEffect, useState } from "react";
 import * as THREE from "three";
 import { createRoot } from "react-dom/client";
@@ -11,12 +15,12 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Cat } from "../component/Mesh/Cat";
 import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls";
 import Keycontroller from "../function/Keycontroller";
-import { Player } from "../component/Mesh/Player";
+import Player from "../component/Mesh/Player";
 import { BottomMenu } from "../component/BottomMenu";
 import { QuestModal } from "../component/QuestModal";
 import { BagModal } from "../component/BagModal";
 import { QuestionModal } from "../component/QuestionModal";
-import { Exclamation } from "../component/Mesh/Exclamation";
+import Exclamation from "../component/Mesh/Exclamation";
 import { questGatherState } from "../recoil/store";
 import { CatQuestModal1 } from "../component/Quest/CatQuestModal1";
 
@@ -44,16 +48,17 @@ function RoadMesh(props: JSX.IntrinsicElements["mesh"]) {
 export const Main = () => {
   const clock = new THREE.Clock();
   const ref = useRef<any>();
-  // Renderer
-  const canvas = ref.current;
 
-  const [questGather, setQuestGather] = useRecoilState(questGatherState);
-  const keyUpEvent = (e: React.KeyboardEvent<any>) => {
-    console.log(e);
-    if (e.key === "G") {
-      setQuestGather({ ...questGatherState, catQuestModal1: true });
-    }
-  };
+  const canvas = ref.current;
+  const RecoilBridge = useRecoilBridgeAcrossReactRoots_UNSTABLE();
+
+  // const [questGather, setQuestGather] = useRecoilState(questGatherState);
+  // const keyUpEvent = (e: React.KeyboardEvent<any>) => {
+  //   console.log(e);
+  //   if (e.key === "G") {
+  //     setQuestGather({ ...questGatherState, catQuestModal1: true });
+  //   }
+  // };
 
   return (
     <>
@@ -64,21 +69,23 @@ export const Main = () => {
           width: "100vw",
           height: "100vh",
         }}
-        onKeyUp={keyUpEvent}
+        // onKeyUp={keyUpEvent}
       >
         <ambientLight />
         <directionalLight />
-        <Suspense fallback={null}>
-          <RoadMesh position={[0, 1, 0]} />
-        </Suspense>
-        <Suspense fallback={null}>
-          <Player canvasProp={canvas} />
-        </Suspense>
-        <Suspense fallback={null}>
-          <Cat />
-          <Exclamation></Exclamation>
-        </Suspense>
-        <Suspense fallback={null}></Suspense>
+        <RecoilBridge>
+          <Suspense fallback={null}>
+            <RoadMesh position={[0, 1, 0]} />
+          </Suspense>
+          <Suspense fallback={null}>
+            <Player canvasProp={canvas} />
+          </Suspense>
+          <Suspense fallback={null}>
+            <Cat />
+            <Exclamation></Exclamation>
+          </Suspense>
+          <Suspense fallback={null}></Suspense>
+        </RecoilBridge>
         <pointLight position={[10, 10, 10]} />
       </Canvas>
       <BottomMenu />

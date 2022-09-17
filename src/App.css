@@ -3,10 +3,12 @@
   padding: 0px;
   font-weight: 500;
   box-sizing: border-box;
+  font-family: "Title2";
+  font-size: 20px;
 }
 
 input {
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: "Title2";
 }
 
 @font-face {

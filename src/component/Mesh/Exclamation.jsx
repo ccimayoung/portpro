@@ -1,10 +1,12 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useMemo } from "react";
 import { useLoader, useFrame, useThree } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import * as THREE from "three";
 import Keycontroller from "../../function/Keycontroller";
+import { useRecoilState } from "recoil";
+import { questGatherState } from "../../recoil/store";
 
-export function Exclamation(props) {
+function Exclamation(props) {
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
 
@@ -16,13 +18,19 @@ export function Exclamation(props) {
   const exclamationtSizeByPlayer = 10;
   // const cameraPosition = new THREE.Vector3(1, 5, 5);
   // console.log(gltf.scene.traverse);
+  const [questGather, setQuestGather] = useRecoilState(questGatherState);
 
   exclamationtMesh.position.x = exclamationtSizeByPlayer * 0.4;
   exclamationtMesh.position.y = exclamationtSizeByPlayer * 0.6;
   exclamationtMesh.position.z = -30;
+  const keyController = new Keycontroller();
 
   useFrame((state, delta, frame) => {
     exclamationtMesh.name = "exclamationt";
+    if (keyController.keys["KeyG"]) {
+      setQuestGather({ ...questGatherState, catQuestModal1: true });
+      console.log("g누른ㄱ");
+    }
   });
 
   return (
@@ -38,3 +46,4 @@ export function Exclamation(props) {
     </>
   );
 }
+export default React.memo(Exclamation);

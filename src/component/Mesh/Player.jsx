@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import { useLoader, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
@@ -10,12 +10,12 @@ import { useRecoilState } from "recoil";
 import { questGatherState } from "../../recoil/store";
 import { CatQuestModal1 } from "../Quest/CatQuestModal1";
 
-export function Player(props) {
-  const { canvas } = props;
+const Player = (props) => {
+  // const { canvas } = props;
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
-  const [pressG, setPressG] = useState(false);
-  const [questGather, setQuestGather] = useRecoilState(questGatherState);
+
+  // const [questGather, setQuestGather] = useRecoilState(questGatherState);
 
   // load GLTF
   const gltf = useLoader(GLTFLoader, "/캐릭터.glb");
@@ -66,7 +66,6 @@ export function Player(props) {
   playerMesh.position.z = -2;
   playerMesh.rotation.y = Math.PI;
   // }
-
   useThree(({ camera }) => {
     camera.position.set(
       playerMesh.position.x,
@@ -136,10 +135,6 @@ export function Player(props) {
       }
     }
 
-    if (keyController.keys["KeyG"]) {
-      setPressG(true);
-      console.log(pressG);
-    }
     if (keyController.keys["Space"]) {
       if (playerMesh.position.y <= 1 && !jump) {
         playerMesh.position.y += 0.03;
@@ -174,4 +169,5 @@ export function Player(props) {
       />
     </>
   );
-}
+};
+export default React.memo(Player);
