@@ -23,3 +23,13 @@ input {
   font-family: "OpensansBold";
   src: url("./asset/font/OPENSANS-BOLD.TTF");
 }
+
+@font-face {
+  font-family: "Title2";
+  src: url("./asset/font/A타이틀고딕2.TTF");
+}
+
+@font-face {
+  font-family: "Title4";
+  src: url("./asset/font/A타이틀고딕4.TTF");
+}

@@ -8,14 +8,17 @@ import { useGLTF } from "@react-three/drei";
 import { Canvas, useFrame, ThreeElements, useLoader } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { CatMesh } from "../component/CatMesh";
+import { Cat } from "../component/Mesh/Cat";
 import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls";
 import Keycontroller from "../function/Keycontroller";
-import { PlayerMesh } from "../component/Player";
+import { Player } from "../component/Mesh/Player";
 import { BottomMenu } from "../component/BottomMenu";
 import { QuestModal } from "../component/QuestModal";
 import { BagModal } from "../component/BagModal";
 import { QuestionModal } from "../component/QuestionModal";
+import { Exclamation } from "../component/Mesh/Exclamation";
+import { questGatherState } from "../recoil/store";
+import { CatQuestModal1 } from "../component/Quest/CatQuestModal1";
 
 function RoadMesh(props: JSX.IntrinsicElements["mesh"]) {
   // load GLTF
@@ -44,6 +47,14 @@ export const Main = () => {
   // Renderer
   const canvas = ref.current;
 
+  const [questGather, setQuestGather] = useRecoilState(questGatherState);
+  const keyUpEvent = (e: React.KeyboardEvent<any>) => {
+    console.log(e);
+    if (e.key === "G") {
+      setQuestGather({ ...questGatherState, catQuestModal1: true });
+    }
+  };
+
   return (
     <>
       <Canvas
@@ -53,6 +64,7 @@ export const Main = () => {
           width: "100vw",
           height: "100vh",
         }}
+        onKeyUp={keyUpEvent}
       >
         <ambientLight />
         <directionalLight />
@@ -60,17 +72,20 @@ export const Main = () => {
           <RoadMesh position={[0, 1, 0]} />
         </Suspense>
         <Suspense fallback={null}>
-          <PlayerMesh canvasProp={canvas} />
+          <Player canvasProp={canvas} />
         </Suspense>
         <Suspense fallback={null}>
-          <CatMesh />
+          <Cat />
+          <Exclamation></Exclamation>
         </Suspense>
+        <Suspense fallback={null}></Suspense>
         <pointLight position={[10, 10, 10]} />
       </Canvas>
       <BottomMenu />
       <QuestModal />
       <QuestionModal />
       <BagModal />
+      <CatQuestModal1 />
     </>
   );
 };

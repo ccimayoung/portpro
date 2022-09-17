@@ -23,3 +23,14 @@ export const playerPositionForCatState = atom({
   key: "playerPositionForCatState",
   default: [0, 0, 0],
 });
+
+export type questGather = {
+  catQuestModal1?: boolean;
+};
+
+export const questGatherState = atom<questGather>({
+  key: "questGatherState",
+  default: {
+    catQuestModal1: false,
+  },
+});
