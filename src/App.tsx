@@ -6,9 +6,17 @@ import { RecoilRoot } from "recoil";
 import { routeList } from "./route/routeList";
 import { RouterSwitch } from "./route/RouterSwitch";
 import { Main } from "./page";
+import { HouseInMap } from "./page/HouseInMap";
 
 function App() {
-  return <Main />;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/houseinmap" element={<HouseInMap />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;

@@ -54,7 +54,15 @@ export const BottomMenu = () => {
           src="/assets/quest.png"
           alt="퀘스트"
           onClick={() => {
-            setmodalGather({ ...modalGather, questModal: true });
+            setmodalGather({ ...modalGather, memoriesModal: true });
+          }}
+        />
+
+        <ImgContent
+          src="/assets/location.png"
+          alt="지도"
+          onClick={() => {
+            setmodalGather({ ...modalGather, mapModal: true });
           }}
         />
         <ImgContent
@@ -62,13 +70,6 @@ export const BottomMenu = () => {
           alt="가방"
           onClick={() => {
             setmodalGather({ ...modalGather, bagModal: true });
-          }}
-        />
-        <ImgContent
-          src="/assets/location.png"
-          alt="지도"
-          onClick={() => {
-            setmodalGather({ ...modalGather, mapModal: true });
           }}
         />
       </RightImgBox>

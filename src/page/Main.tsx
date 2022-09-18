@@ -17,12 +17,12 @@ import { PointerLockControls } from "three/examples/jsm/controls/PointerLockCont
 import Keycontroller from "../function/Keycontroller";
 import Player from "../component/Mesh/Player";
 import { BottomMenu } from "../component/BottomMenu";
-import { QuestModal } from "../component/QuestModal";
 import { BagModal } from "../component/BagModal";
 import { QuestionModal } from "../component/QuestionModal";
 import Exclamation from "../component/Mesh/Exclamation";
 import { questGatherState } from "../recoil/store";
 import { CatQuestModal1 } from "../component/Quest/CatQuestModal1";
+import { MemoriesModal } from "../component/MemoriesModal";
 
 function RoadMesh(props: JSX.IntrinsicElements["mesh"]) {
   // load GLTF
@@ -89,7 +89,7 @@ export const Main = () => {
         <pointLight position={[10, 10, 10]} />
       </Canvas>
       <BottomMenu />
-      <QuestModal />
+      <MemoriesModal />
       <QuestionModal />
       <BagModal />
       <CatQuestModal1 />

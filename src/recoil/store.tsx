@@ -4,18 +4,43 @@ import { atom } from "recoil";
 
 export type modalGather = {
   questionModal?: boolean;
-  questModal?: boolean;
+  memoriesModal?: boolean;
   bagModal?: boolean;
   mapModal?: boolean;
+  todowithModal?: boolean;
+  utModal?: boolean;
+  sgModal?: boolean;
 };
 
 export const modalGatherState = atom<modalGather>({
   key: "modalGatherState",
   default: {
     questionModal: false,
-    questModal: false,
+    memoriesModal: false,
     bagModal: false,
     mapModal: false,
+    todowithModal: false,
+    utModal: false,
+    sgModal: false,
+  },
+});
+
+export type memoriesGather = {
+  photoMemory?: boolean;
+  skillsMemory?: boolean;
+  utMemory?: boolean;
+  todowithMemory?: boolean;
+  sgMemory?: boolean;
+};
+
+export const memoriesGatherState = atom<memoriesGather>({
+  key: "memoriesGatherState",
+  default: {
+    photoMemory: false,
+    skillsMemory: false,
+    utMemory: false,
+    todowithMemory: false,
+    sgMemory: false,
   },
 });
 

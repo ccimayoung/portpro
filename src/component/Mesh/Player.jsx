@@ -29,7 +29,7 @@ const Player = (props) => {
   if (mixer) {
     actions[0] = mixer.clipAction(gltf.animations[0]);
     actions[1] = mixer.clipAction(gltf.animations[1]);
-    actions[1].setEffectiveTimeScale(0.6);
+    actions[1].setEffectiveTimeScale(0.7);
     // actions[1].enabled = false;
 
     // actions[1].clampWhenFinished = true;
@@ -62,7 +62,7 @@ const Player = (props) => {
 
   playerMesh.name = "player";
   // if (foward === "start") {
-  playerMesh.position.y = 0.35;
+  playerMesh.position.y = 0.3;
   playerMesh.position.z = -2;
   playerMesh.rotation.y = Math.PI;
   // }
@@ -82,6 +82,7 @@ const Player = (props) => {
   });
   let jump = false;
   let walk = false;
+  const playerSpeed = 0.015;
   useFrame((state, delta, frame) => {
     const cameraPosition = new THREE.Vector3(
       playerMesh.position.x,
@@ -111,13 +112,13 @@ const Player = (props) => {
       }
       console.log("앞으로");
 
-      playerMesh.position.z -= 0.01;
+      playerMesh.position.z -= playerSpeed;
     }
     walk = false;
 
     if (keyController.keys["KeyS"] || keyController.keys["ArrowDown"]) {
       if (playerMesh.position.z < -0.5) {
-        playerMesh.position.z += 0.01;
+        playerMesh.position.z += playerSpeed;
         if (playerMesh.rotation.y >= 0) {
           playerMesh.rotation.y -= delta * Math.PI * 2;
         }
@@ -126,12 +127,12 @@ const Player = (props) => {
 
     if (keyController.keys["KeyA"] || keyController.keys["ArrowLeft"]) {
       if (playerMesh.position.x > -0.7) {
-        playerMesh.position.x -= 0.01;
+        playerMesh.position.x -= playerSpeed;
       }
     }
     if (keyController.keys["KeyD"] || keyController.keys["ArrowRight"]) {
       if (playerMesh.position.x < 0.7) {
-        playerMesh.position.x += 0.01;
+        playerMesh.position.x += playerSpeed;
       }
     }
 

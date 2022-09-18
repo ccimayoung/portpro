@@ -1,0 +1,9 @@
+.linktag {
+  text-align: center;
+  /* border: 1px solid violet; */
+  /* width: 300px; */
+  background-color: rgba(238, 254, 255, 0.869);
+  /* display: block; */
+  text-decoration: none;
+  margin-left: 5px;
+}

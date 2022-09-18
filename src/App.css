@@ -4,7 +4,19 @@
   font-weight: 500;
   box-sizing: border-box;
   font-family: "Title2";
-  font-size: 20px;
+  font-size: 17px;
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(33, 122, 244, 0.1);
+}
+::-webkit-scrollbar-thumb {
+  height: 30%; /* 스크롤바의 길이 */
+  background: #004257; /* 스크롤바의 색상 */
+
+  border-radius: 10px;
 }
 
 input {

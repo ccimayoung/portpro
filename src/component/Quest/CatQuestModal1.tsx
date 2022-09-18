@@ -88,6 +88,15 @@ export const QuitImg = styled.img`
   cursor: pointer;
 `;
 
+export const QuestFont = styled(EvKoreanFont)`
+  & > span:nth-of-type(1) {
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 32px;
+    color: #ff007a;
+  }
+`;
+
 export const CatQuestModal1 = () => {
   const [questGather, setQuestGather] = useRecoilState(questGatherState);
   const keyController = new Keycontroller();
@@ -122,14 +131,16 @@ export const CatQuestModal1 = () => {
                 }}
               />
               <WordBox>
-                <EvKoreanFont
+                <QuestFont
                   size={25}
                   weight={500}
                   style={{ whiteSpace: "pre-line" }}
-                  lineHeight={"30px"}
+                  lineHeight={"32px"}
                 >
-                  {`야옹. 기억을 잃었냥? \n 퀘스트를 다 완료하면 기억을 되찾을 수 있다냥.\n 내가 너한테 도움이 될 수 있을 것 같다냥..! 애옹...🐱\n 저기 앞 집에서 통조림 캔 2개를 가져오면 함께 하겠다냥.`}
-                </EvKoreanFont>
+                  {`야옹. 기억을 잃었냥? \n 퀘스트를 다 완료하면 기억을 되찾을 수 있다냥.\n 내가 너한테 도움이 될 수 있을 것 같다냥..! 애옹...🐱\n 저기 앞 집에서`}
+                  {<span> 통조림 캔 2개</span>}
+                  {`를 가져오면 함께 하겠다냥.`}
+                </QuestFont>
               </WordBox>
               <EvBtnAble
                 width={200}

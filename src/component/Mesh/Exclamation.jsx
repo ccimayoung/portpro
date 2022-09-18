@@ -12,7 +12,6 @@ function Exclamation(props) {
 
   // load GLTF
   const gltf = useLoader(GLTFLoader, "/exclamation_mark_3d_icon.glb");
-  console.log(gltf);
   const exclamationtMesh = gltf.scene.children[0];
   const clock = new THREE.Clock();
   const exclamationtSizeByPlayer = 10;

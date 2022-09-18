@@ -32,8 +32,8 @@ const BoxWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 900px;
-  height: 900px;
+  width: 800px;
+  height: 800px;
   animation: ${Slide} 0.6s ease;
   overflow-y: auto;
   overflow-x: hidden;
