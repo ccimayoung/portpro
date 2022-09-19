@@ -83,6 +83,7 @@ const Player = (props) => {
   let jump = false;
   let walk = false;
   const playerSpeed = 0.015;
+
   useFrame((state, delta, frame) => {
     const cameraPosition = new THREE.Vector3(
       playerMesh.position.x,
@@ -97,7 +98,18 @@ const Player = (props) => {
     if (mixer) {
       mixer.update(delta);
     }
-    if (Object.keys(keyController.keys).length) {
+
+    if (
+      keyController.keys.KeyW ||
+      keyController.keys.ArrowUp ||
+      keyController.keys["KeyS"] ||
+      keyController.keys["ArrowDown"] ||
+      keyController.keys["KeyA"] ||
+      keyController.keys["ArrowLeft"] ||
+      keyController.keys["KeyD"] ||
+      keyController.keys["ArrowRight"] ||
+      keyController.keys["Space"]
+    ) {
       if (!actions[1].isRunning()) {
         actions[1].reset();
         actions[1].setLoop(THREE.LoopRepeat, Infinity);
@@ -106,6 +118,17 @@ const Player = (props) => {
     } else {
       actions[1].setLoop(THREE.LoopOnce);
     }
+
+    // if (Object.keys(keyController.keys).length) {
+    //   if (!actions[1].isRunning()) {
+    //     actions[1].reset();
+    //     actions[1].setLoop(THREE.LoopRepeat, Infinity);
+    //   }
+    //   actions[1].play();
+    // } else {
+    //   actions[1].setLoop(THREE.LoopOnce);
+    // }
+
     if (keyController.keys.KeyW || keyController.keys.ArrowUp) {
       if (playerMesh.rotation.y <= Math.PI) {
         playerMesh.rotation.y += delta * Math.PI * 2;

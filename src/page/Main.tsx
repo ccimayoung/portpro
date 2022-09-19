@@ -20,9 +20,12 @@ import { BottomMenu } from "../component/BottomMenu";
 import { BagModal } from "../component/BagModal";
 import { QuestionModal } from "../component/QuestionModal";
 import Exclamation from "../component/Mesh/Exclamation";
-import { questGatherState } from "../recoil/store";
+import { modalGatherState, questGatherState } from "../recoil/store";
 import { CatQuestModal1 } from "../component/Quest/CatQuestModal1";
 import { MemoriesModal } from "../component/MemoriesModal";
+import { HouseGoMenu } from "../component/HouseGoMenu";
+import HouseOut from "../component/Mesh/HouseOut";
+import QuestionMark from "../component/Mesh/QuestionMark";
 
 function RoadMesh(props: JSX.IntrinsicElements["mesh"]) {
   // load GLTF
@@ -48,7 +51,6 @@ function RoadMesh(props: JSX.IntrinsicElements["mesh"]) {
 export const Main = () => {
   const clock = new THREE.Clock();
   const ref = useRef<any>();
-
   const canvas = ref.current;
   const RecoilBridge = useRecoilBridgeAcrossReactRoots_UNSTABLE();
 
@@ -82,9 +84,12 @@ export const Main = () => {
           </Suspense>
           <Suspense fallback={null}>
             <Cat />
-            <Exclamation></Exclamation>
+            {/* <Exclamation></Exclamation> */}
+            <QuestionMark />
           </Suspense>
-          <Suspense fallback={null}></Suspense>
+          <Suspense fallback={null}>
+            <HouseOut />
+          </Suspense>
         </RecoilBridge>
         <pointLight position={[10, 10, 10]} />
       </Canvas>
@@ -93,6 +98,7 @@ export const Main = () => {
       <QuestionModal />
       <BagModal />
       <CatQuestModal1 />
+      <HouseGoMenu />
     </>
   );
 };

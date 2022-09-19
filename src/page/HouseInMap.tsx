@@ -27,7 +27,7 @@ import { BottomMenu } from "../component/BottomMenu";
 import { BagModal } from "../component/BagModal";
 import { QuestionModal } from "../component/QuestionModal";
 import Exclamation from "../component/Mesh/Exclamation";
-import { questGatherState } from "../recoil/store";
+import { modalGatherState, questGatherState } from "../recoil/store";
 import { CatQuestModal1 } from "../component/Quest/CatQuestModal1";
 import TunaCan1 from "../component/Mesh/TunaCan1";
 import TunaCan2 from "../component/Mesh/TunaCan2";
@@ -44,6 +44,10 @@ import BoardSG from "../component/Mesh/BoardSG";
 import { SgModal } from "../component/Project/SgModal";
 import { UtModal } from "../component/Project/UtModal";
 import { MemoriesModal } from "../component/MemoriesModal";
+import { FindTuna1Modal } from "../component/Quest/FindTuna1Modal";
+import { FindTuna2Modal } from "../component/Quest/FindTuna2Modal";
+import { HouseInExplainModal } from "../component/HouseInExplainModal";
+import { HouseInMenu } from "../component/HouseInMenu";
 
 function HouseInMesh(props: JSX.IntrinsicElements["mesh"]) {
   const gltf = useLoader(GLTFLoader, "/rick_and_morty_garage_fan_art.glb");
@@ -77,7 +81,7 @@ function HouseInMesh(props: JSX.IntrinsicElements["mesh"]) {
 export const HouseInMap = () => {
   const clock = new THREE.Clock();
   const ref = useRef<any>();
-
+  const [modalGather, setmodalGather] = useRecoilState(modalGatherState);
   const canvas = ref.current;
   const RecoilBridge = useRecoilBridgeAcrossReactRoots_UNSTABLE();
 
@@ -88,6 +92,10 @@ export const HouseInMap = () => {
   //     setQuestGather({ ...questGatherState, catQuestModal1: true });
   //   }
   // };
+
+  useEffect(() => {
+    setmodalGather({ ...modalGather, houseInExplainModal: true });
+  }, []);
 
   return (
     <>
@@ -127,6 +135,10 @@ export const HouseInMap = () => {
       <TodowithModal />
       <UtModal />
       <SgModal />
+      <FindTuna1Modal />
+      <FindTuna2Modal />
+      <HouseInExplainModal />
+      <HouseInMenu />
     </>
   );
 };

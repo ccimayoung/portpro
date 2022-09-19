@@ -37,7 +37,7 @@ const BoxWrap = styled.div`
   animation: ${Slide} 0.6s ease;
   overflow-y: auto;
   overflow-x: hidden;
-  background-image: url("/assets/suitcase.png");
+  background-image: url("/assets/집안맵 설명.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
@@ -52,7 +52,7 @@ const BoxWrap = styled.div`
 export const QuitBox = styled.div`
   width: 60px;
   height: 60px;
-  top: 55px;
+  top: 140px;
   right: 50px;
   border: 3px solid black;
   border-radius: 50px;
@@ -70,15 +70,16 @@ export const QuitImg = styled.img`
   cursor: pointer;
 `;
 
-export const BagModal = () => {
+export const HouseInExplainModal = () => {
   const [modalGather, setmodalGather] = useRecoilState(modalGatherState);
-  const [bagGather, setBagGather] = useRecoilState(bagGatherState);
 
   return (
     <>
-      {modalGather.bagModal && (
+      {modalGather.houseInExplainModal && (
         <ModalBackground
-          onClick={() => setmodalGather({ ...modalGather, bagModal: false })}
+          onClick={() =>
+            setmodalGather({ ...modalGather, houseInExplainModal: false })
+          }
         >
           <BoxWrap
             onClick={(e) => {
@@ -90,35 +91,13 @@ export const BagModal = () => {
                 src="/assets/reject.png"
                 alt="닫음"
                 onClick={() => {
-                  setmodalGather({ ...modalGather, bagModal: false });
+                  setmodalGather({
+                    ...modalGather,
+                    houseInExplainModal: false,
+                  });
                 }}
               />
             </QuitBox>
-            {bagGather.tonaCan1 && (
-              <img
-                style={{
-                  width: "160px",
-                  position: "absolute",
-                  right: "190px",
-                  top: "390px",
-                }}
-                src="/assets/가방/참치캔 배경없음.png"
-                alt="참치캔1"
-              ></img>
-            )}
-
-            {bagGather.tonaCan2 && (
-              <img
-                style={{
-                  width: "160px",
-                  position: "absolute",
-                  right: "320px",
-                  top: "490px",
-                }}
-                src="/assets/가방/참치캔 배경없음.png"
-                alt="참치캔1"
-              ></img>
-            )}
           </BoxWrap>
         </ModalBackground>
       )}

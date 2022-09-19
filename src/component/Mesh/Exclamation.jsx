@@ -21,7 +21,7 @@ function Exclamation(props) {
 
   exclamationtMesh.position.x = exclamationtSizeByPlayer * 0.4;
   exclamationtMesh.position.y = exclamationtSizeByPlayer * 0.6;
-  exclamationtMesh.position.z = -30;
+  exclamationtMesh.position.z = -70;
   const keyController = new Keycontroller();
 
   useFrame((state, delta, frame) => {

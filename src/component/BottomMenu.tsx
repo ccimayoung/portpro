@@ -2,6 +2,19 @@ import { useRecoilState } from "recoil";
 import styled, { keyframes } from "styled-components";
 import { modalGatherState } from "../recoil/store";
 
+export const HouseInMapExplainImgBox = styled.div`
+  width: 100px;
+  height: 100px;
+  background: #ffffffdc;
+  position: fixed;
+  left: 10%;
+  margin: -115px 0 0 0;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+`;
+
 export const LeftImgBox = styled.div`
   width: 100px;
   height: 100px;
@@ -13,7 +26,6 @@ export const LeftImgBox = styled.div`
   align-items: center;
   justify-content: center;
   display: flex;
-  gap: 20px;
 `;
 
 export const RightImgBox = styled.div`

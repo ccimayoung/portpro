@@ -134,7 +134,7 @@ export const TitleBox = styled(EvColumnBox)`
 `;
 
 export const MemoryTitleBox = styled(EvColumnBox)`
-  background-color: yellow;
+  /* background-color: yellow; */
   width: 300px;
   height: 35px;
 `;

@@ -30,7 +30,7 @@ export function Cat(props) {
   }
   catMesh.position.x = catSizeByPlayer * 0.4;
   catMesh.position.y = 2;
-  catMesh.position.z = -catSizeByPlayer * 3;
+  catMesh.position.z = -catSizeByPlayer * 7;
   const keyController = new Keycontroller();
   useFrame((state, delta, frame) => {
     catMesh.name = "cat";

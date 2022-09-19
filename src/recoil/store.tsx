@@ -3,6 +3,7 @@ import { atom } from "recoil";
 // const { persistAtom } = recoilPersist();
 
 export type modalGather = {
+  houseInExplainModal?: boolean;
   questionModal?: boolean;
   memoriesModal?: boolean;
   bagModal?: boolean;
@@ -15,13 +16,40 @@ export type modalGather = {
 export const modalGatherState = atom<modalGather>({
   key: "modalGatherState",
   default: {
-    questionModal: false,
+    houseInExplainModal: false,
+    questionModal: true,
     memoriesModal: false,
     bagModal: false,
     mapModal: false,
     todowithModal: false,
     utModal: false,
     sgModal: false,
+  },
+});
+
+export type bagGather = {
+  tonaCan1?: boolean;
+  tonaCan2?: boolean;
+};
+
+export const bagGatherState = atom<bagGather>({
+  key: "bagGatherState",
+  default: {
+    tonaCan1: false,
+    tonaCan2: false,
+  },
+});
+
+export type findObjectGather = {
+  tonaCan1?: boolean;
+  tonaCan2?: boolean;
+};
+
+export const findObjectGatherState = atom<findObjectGather>({
+  key: "findObjectGatherState",
+  default: {
+    tonaCan1: false,
+    tonaCan2: false,
   },
 });
 
