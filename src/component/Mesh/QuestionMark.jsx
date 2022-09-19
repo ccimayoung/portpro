@@ -21,7 +21,7 @@ function Exclamation(props) {
   questionMesh.rotation.x = Math.PI / 180;
   questionMesh.position.x = 5;
   questionMesh.position.y = 7;
-  questionMesh.position.z = -QuestionSizeByPlayer * 4.8;
+  questionMesh.position.z = -QuestionSizeByPlayer * 7;
   const keyController = new Keycontroller();
 
   useFrame((state, delta, frame) => {
