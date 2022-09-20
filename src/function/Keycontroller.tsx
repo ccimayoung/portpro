@@ -6,13 +6,13 @@ export default class Keycontroller {
     this.keys = {};
 
     window.addEventListener("keydown", (e) => {
-      console.log(e.code + " 누름");
+      // console.log(e.code + " 누름");
       this.keys[e.code] = true;
       //e.code에 누른 알파벳이 나와서 w를 누르면 this.keys["KeyW"] = true
     });
 
     window.addEventListener("keyup", (e: KeyboardEvent) => {
-      console.log(e.code + " 손뗌");
+      // console.log(e.code + " 손뗌");
       delete this.keys[e.code];
       //w에서 손을 때면 this.key배열에서 "KeyW" 삭제
     });

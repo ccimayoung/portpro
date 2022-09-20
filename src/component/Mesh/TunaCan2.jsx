@@ -14,7 +14,6 @@ import { Select } from "@react-three/drei";
 function TunaCan2(props) {
   // load GLTF
   const gltf = useLoader(GLTFLoader, "/tuna_can2.glb");
-  console.log(gltf);
   const tunaCanMesh2 = gltf.scene.children[0];
   const [hover, setHover] = useState(false);
   const [bagGather, setBagGather] = useRecoilState(bagGatherState);
@@ -37,7 +36,11 @@ function TunaCan2(props) {
           rotation={[0, Math.PI * 0.5, 0]}
           onClick={() => {
             setBagGather({ ...bagGather, tonaCan2: true });
-            setFindObjectGather({ ...findObjectGather, tonaCan2: true });
+            setFindObjectGather({
+              ...findObjectGather,
+              tonaCan2Find: true,
+              tonaCan2Modal: true,
+            });
           }}
           onPointerOver={() => setHover(true)}
           onPointerOut={() => setHover(false)}

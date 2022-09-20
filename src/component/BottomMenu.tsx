@@ -72,10 +72,8 @@ export const BottomMenu = () => {
 
         <ImgContent
           src="/assets/location.png"
-          alt="지도"
-          onClick={() => {
-            setmodalGather({ ...modalGather, mapModal: true });
-          }}
+          alt="퀘스트"
+          onClick={() => setmodalGather({ ...modalGather, questModal: true })}
         />
         <ImgContent
           src="/assets/backpack.png"

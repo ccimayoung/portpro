@@ -1,9 +1,15 @@
 import styled, { keyframes } from "styled-components";
 import { useRecoilState } from "recoil";
 import React, { useState } from "react";
-import { questGatherState } from "../../recoil/store";
+import {
+  findObjectGatherState,
+  modalGatherState,
+  questGatherState,
+  questProgressGatherState,
+} from "../../recoil/store";
 import Keycontroller from "../../function/Keycontroller";
 import { EvBtnAble, EvKoreanFont } from "../../style/EvStyle";
+import { QuestModal } from "../QuestModal";
 
 const Slide = keyframes`
     0% {
@@ -99,12 +105,6 @@ export const QuestFont = styled(EvKoreanFont)`
 
 export const CatQuestModal1 = () => {
   const [questGather, setQuestGather] = useRecoilState(questGatherState);
-  const keyController = new Keycontroller();
-
-  if (keyController.keys["KeyG"]) {
-    setQuestGather({ ...questGatherState, catQuestModal1: true });
-    console.log("g누른ㄱ");
-  }
 
   return (
     <>
@@ -130,31 +130,125 @@ export const CatQuestModal1 = () => {
                   });
                 }}
               />
-              <WordBox>
-                <QuestFont
-                  size={25}
-                  weight={500}
-                  style={{ whiteSpace: "pre-line" }}
-                  lineHeight={"32px"}
-                >
-                  {`야옹. 기억을 잃었냥? \n 퀘스트를 다 완료하면 기억을 되찾을 수 있다냥.\n 내가 너한테 도움이 될 수 있을 것 같다냥..! 애옹...🐱\n 저기 앞 집에서`}
-                  {<span> 통조림 캔 2개</span>}
-                  {`를 가져오면 함께 하겠다냥.`}
-                </QuestFont>
-              </WordBox>
-              <EvBtnAble
-                width={200}
-                height={50}
-                margin={"10px 320px auto 380px"}
-                onClick={() =>
-                  setQuestGather({ ...questGatherState, catQuestModal1: false })
-                }
-              >
-                알겠어!
-              </EvBtnAble>
+
+              <CatWord />
             </CatQuestBox>
           </BoxWrap>
         </ModalBackground>
+      )}
+    </>
+  );
+};
+
+export const CatWord = () => {
+  const [findObjectGather, setFindObjectGather] = useRecoilState(
+    findObjectGatherState
+  );
+  const [questProgressGather, setQuestProgressGather] = useRecoilState(
+    questProgressGatherState
+  );
+  const [questGather, setQuestGather] = useRecoilState(questGatherState);
+  const [modalGather, setmodalGather] = useRecoilState(modalGatherState);
+  return (
+    <>
+      {findObjectGather.tonaCan1Find && findObjectGather.tonaCan2Find ? (
+        <>
+          {/* 둘다 찾았을때 */}
+          <WordBox>
+            <QuestFont
+              size={25}
+              weight={500}
+              style={{ whiteSpace: "pre-line" }}
+              lineHeight={"32px"}
+            >
+              {`얼마만의 참치캔이냥!!!!!!!!! 고맙다냥😻😻😻
+              이제 너는 내 친구다냥`}
+            </QuestFont>
+          </WordBox>
+          <EvBtnAble
+            width={300}
+            height={50}
+            margin={"10px 320px auto 380px"}
+            onClick={() => {
+              setQuestGather({
+                ...questGatherState,
+                catQuestModal1: false,
+              });
+              setQuestProgressGather({
+                ...questProgressGather,
+                q1TunaCan: "finish",
+              });
+            }}
+          >
+            퀘스트 완료!
+          </EvBtnAble>
+        </>
+      ) : !findObjectGather.tonaCan1Find && !findObjectGather.tonaCan2Find ? (
+        // 둘다 못찾은 상태. 초기
+        <>
+          <WordBox>
+            <QuestFont
+              size={25}
+              weight={500}
+              style={{ whiteSpace: "pre-line" }}
+              lineHeight={"32px"}
+            >
+              {`야옹. 기억을 잃었냥? \n 퀘스트를 다 완료하면 기억을 되찾을 수 있다냥.\n 내가 너한테 도움이 될 수 있을 것 같다냥..! 애옹...🐱\n 저기 앞 집에서`}
+              {<span> 참치캔 2개</span>}
+              {`를 가져오면 함께 하겠다냥.`}
+            </QuestFont>
+          </WordBox>
+          <EvBtnAble
+            width={300}
+            height={50}
+            margin={"10px 320px auto 380px"}
+            onClick={() => {
+              setQuestGather({
+                ...questGatherState,
+                catQuestModal1: false,
+              });
+              setQuestProgressGather({
+                ...questProgressGather,
+                q1TunaCan: "ing",
+              });
+              setTimeout(
+                () => setmodalGather({ ...modalGather, questModal: true }),
+                200
+              );
+            }}
+          >
+            알겠어!
+          </EvBtnAble>
+        </>
+      ) : (
+        <>
+          <WordBox>
+            <QuestFont
+              size={25}
+              weight={500}
+              style={{ whiteSpace: "pre-line" }}
+              lineHeight={"32px"}
+            >
+              {`1개로는 부족하다냥!!
+              `}
+              {<span> 참치캔 2개</span>}
+              {`를 가져와야 한다냥. 2개 모두 집에 있다냥!`}
+            </QuestFont>
+          </WordBox>
+          <EvBtnAble
+            width={300}
+            height={50}
+            margin={"10px 320px auto 380px"}
+            onClick={() => {
+              setQuestGather({
+                ...questGatherState,
+                catQuestModal1: false,
+              });
+            }}
+          >
+            다시 올게!
+          </EvBtnAble>
+        </>
       )}
     </>
   );

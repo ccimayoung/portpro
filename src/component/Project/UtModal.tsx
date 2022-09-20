@@ -143,6 +143,18 @@ export const UtModal = () => {
               >
                 👉 GitHub 보러가기
               </EvProjectBtnAble>
+              <EvProjectBtnAble
+                className="github btn"
+                width={170}
+                onClick={() =>
+                  window.open(
+                    "https://www.figma.com/file/VatAYk9Dyzgtxw1Ci7nbcg/%EC%9A%B0%EB%8B%B9%ED%83%95%ED%83%95-%ED%83%90%ED%97%98%EC%9D%BC%EA%B8%B0?node-id=0%3A1",
+                    "_blank"
+                  )
+                }
+              >
+                👉 Figma 보러가기
+              </EvProjectBtnAble>
             </EvRowBox>
           </BoxWrap>
         </ModalBackground>

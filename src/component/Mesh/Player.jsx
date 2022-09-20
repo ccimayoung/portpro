@@ -7,7 +7,11 @@ import dat from "dat.gui";
 import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls";
 import Keycontroller from "../../function/Keycontroller";
 import { useRecoilState } from "recoil";
-import { questGatherState } from "../../recoil/store";
+import {
+  modalGatherState,
+  playerPositionState,
+  questGatherState,
+} from "../../recoil/store";
 import { CatQuestModal1 } from "../Quest/CatQuestModal1";
 
 const Player = (props) => {
@@ -15,11 +19,56 @@ const Player = (props) => {
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
 
-  // const [questGather, setQuestGather] = useRecoilState(questGatherState);
+  const [playerPosition, setPlayerPosition] =
+    useRecoilState(playerPositionState);
+  const [modalGather, setmodalGather] = useRecoilState(modalGatherState);
+  const [questGather, setQuestGather] = useRecoilState(questGatherState);
+  const [pressG, setPressG] = useState(false);
+  const { gl, camera } = useThree();
+  const renderer = gl;
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(window.devicePixelRatio > 1 ? 2 : 1);
+  camera.fov = 75;
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.near = 0.1;
+  camera.far = 1000;
+  camera.zoom = 0.8;
 
-  // load GLTF
+  const controls = new PointerLockControls(camera, renderer.domElement);
+  const keyController = new Keycontroller();
+  const conditions =
+    keyController.keys.KeyW ||
+    keyController.keys.ArrowUp ||
+    keyController.keys["KeyS"] ||
+    keyController.keys["ArrowDown"] ||
+    keyController.keys["KeyA"] ||
+    keyController.keys["ArrowLeft"] ||
+    keyController.keys["KeyD"] ||
+    keyController.keys["ArrowRight"] ||
+    keyController.keys["Space"];
+
+  // const keyDownEvent = (e) => {
+  //   if (e.key === "Enter") {
+  //     setPressG(true);
+  //   }
+  // };
+
+  // const keyUpEvent = (e) => {
+  //   if (e.key === "Enter") {
+  //     setPressG(false);
+  //   }
+  // };
+
+  useEffect(() => {
+    setPlayerPosition([
+      playerMesh.position.x,
+      playerMesh.position.y,
+      playerMesh.position.z,
+    ]);
+  }, [modalGather, pressG]);
+
   const gltf = useLoader(GLTFLoader, "/캐릭터.glb");
-  // console.log(gltf);
+
   const playerMesh = gltf.scene.children[0];
   const actions = [];
   const clock = new THREE.Clock();
@@ -30,11 +79,7 @@ const Player = (props) => {
     actions[0] = mixer.clipAction(gltf.animations[0]);
     actions[1] = mixer.clipAction(gltf.animations[1]);
     actions[1].setEffectiveTimeScale(0.7);
-    // actions[1].enabled = false;
 
-    // actions[1].clampWhenFinished = true;
-
-    console.log(actions);
     gltf.scene.traverse((child) => {
       // glb 그림자 설정
       if (child.isMesh) {
@@ -43,27 +88,13 @@ const Player = (props) => {
     });
   }
 
-  const { gl, camera } = useThree();
-  const renderer = gl;
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(window.devicePixelRatio > 1 ? 2 : 1);
-  camera.fov = 75;
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.near = 0.1;
-  camera.far = 1000;
-  camera.zoom = 0.8;
-  console.log(camera);
-  const controls = new PointerLockControls(camera, renderer.domElement);
   controls.domElement.addEventListener("click", () => {
     controls.lock();
   });
 
-  const keyController = new Keycontroller();
-
   playerMesh.name = "player";
   // if (foward === "start") {
-  playerMesh.position.y = 0.3;
-  playerMesh.position.z = -2;
+
   playerMesh.rotation.y = Math.PI;
   // }
   useThree(({ camera }) => {
@@ -82,9 +113,12 @@ const Player = (props) => {
   });
   let jump = false;
   let walk = false;
-  const playerSpeed = 0.015;
+  const playerSpeed = 0.02;
+  console.log(playerMesh.position);
 
   useFrame((state, delta, frame) => {
+    // playerMesh.position.y = 0.3;
+    // playerMesh.position.z = -2;
     const cameraPosition = new THREE.Vector3(
       playerMesh.position.x,
       playerMesh.position.y * 25 + 35,
@@ -133,14 +167,13 @@ const Player = (props) => {
       if (playerMesh.rotation.y <= Math.PI) {
         playerMesh.rotation.y += delta * Math.PI * 2;
       }
-      console.log("앞으로");
 
       playerMesh.position.z -= playerSpeed;
     }
     walk = false;
 
     if (keyController.keys["KeyS"] || keyController.keys["ArrowDown"]) {
-      if (playerMesh.position.z < -0.5) {
+      if (playerMesh.position.z < 1) {
         playerMesh.position.z += playerSpeed;
         if (playerMesh.rotation.y >= 0) {
           playerMesh.rotation.y -= delta * Math.PI * 2;
@@ -172,6 +205,11 @@ const Player = (props) => {
       }
       jump = false;
     }
+
+    if (keyController.keys["KeyG"]) {
+      setPressG(!pressG);
+    }
+
     // state.camera.position.z = playerMesh.position.z * 25 + 120;
   });
 

@@ -11,7 +11,6 @@ function HouseIn(props) {
   const [active, setActive] = useState(false);
   // load GLTF
   const gltf = useLoader(GLTFLoader, "/rick_and_morty_garage_fan_art.glb");
-  console.log(gltf);
   const exclamationtMesh = gltf.scene.children[0];
   const clock = new THREE.Clock();
   const exclamationtSizeByPlayer = 10;

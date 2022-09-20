@@ -40,7 +40,7 @@ type box = {
   isContentSide?: boolean;
   url?: string;
   direction?: string;
-  isPadding?: string;
+  padding?: string;
   columnGap?: number | string;
   rowGap?: number | string;
   border?: string;

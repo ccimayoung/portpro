@@ -17,8 +17,6 @@ function BoardTodowith(props) {
   const loader = new THREE.TextureLoader();
   const [hover, setHover] = useState(false);
   const [modalGather, setmodalGather] = useRecoilState(modalGatherState);
-  const ref = useRef();
-  console.log(ref);
   const todowith = useLoader(TextureLoader, "/assets/textures/투두윗1.png");
   return (
     <>

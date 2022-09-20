@@ -84,13 +84,15 @@ export const FindTuna2Modal = () => {
   const [findObjectGather, setFindObjectGather] = useRecoilState(
     findObjectGatherState
   );
-
   return (
     <>
-      {findObjectGather.tonaCan2 && (
+      {findObjectGather.tonaCan2Modal && (
         <ModalBackground
           onClick={() =>
-            setFindObjectGather({ ...findObjectGather, tonaCan2: false })
+            setFindObjectGather({
+              ...findObjectGather,
+              tonaCan2Modal: false,
+            })
           }
         >
           <BoxWrap
@@ -102,9 +104,12 @@ export const FindTuna2Modal = () => {
               <QuitImg
                 src="/assets/reject.png"
                 alt="닫음"
-                onClick={() => {
-                  setFindObjectGather({ ...findObjectGather, tonaCan2: false });
-                }}
+                onClick={() =>
+                  setFindObjectGather({
+                    ...findObjectGather,
+                    tonaCan2Modal: false,
+                  })
+                }
               />
             </QuitBox>
             <img
@@ -115,17 +120,18 @@ export const FindTuna2Modal = () => {
               src="/assets/가방/참치캔 배경없음.png"
               alt="참치캔1"
             ></img>
-            {!findObjectGather.tonaCan1 || !findObjectGather.tonaCan2 ? (
+            {!findObjectGather.tonaCan1Find ||
+            !findObjectGather.tonaCan2Find ? (
               <EvFontBox margin="10px auto auto auto">
-                <FindFont>{<span>참치캔 2개</span>}를 모두 찾았다!</FindFont>
-                <FindFont>고양이에게 참치캔을 주면 좋아하겠지?</FindFont>
+                <FindFont>{<span>참치캔 1개</span>}를 찾았다!</FindFont>
                 <EvKoreanFont size={25} style={{ marginTop: "5px" }}>
                   (오른쪽 아래 가방에서 볼 수 있어요)
                 </EvKoreanFont>
               </EvFontBox>
             ) : (
               <EvFontBox margin="10px auto auto auto">
-                <FindFont>{<span>참치캔 1개</span>}를 찾았다!</FindFont>
+                <FindFont>{<span>참치캔 2개</span>}를 모두 찾았다!</FindFont>
+                <FindFont>고양이에게 참치캔을 주면 좋아하겠지?</FindFont>
                 <EvKoreanFont size={25} style={{ marginTop: "5px" }}>
                   (오른쪽 아래 가방에서 볼 수 있어요)
                 </EvKoreanFont>

@@ -119,6 +119,20 @@ export const BagModal = () => {
                 alt="참치캔1"
               ></img>
             )}
+
+            {bagGather.key1 && (
+              <img
+                style={{
+                  width: "100px",
+                  position: "absolute",
+                  transform: "rotate(35deg)",
+                  right: "190px",
+                  top: "450px",
+                }}
+                src="/assets/가방/열쇠.png"
+                alt="열쇠"
+              ></img>
+            )}
           </BoxWrap>
         </ModalBackground>
       )}

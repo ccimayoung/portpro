@@ -11,22 +11,14 @@ function HouseOut(props) {
   const [active, setActive] = useState(false);
   // load GLTF
   const gltf = useLoader(GLTFLoader, "/fishercabin.glb");
-  console.log(gltf);
   const exclamationtMesh = gltf.scene.children[0];
   const clock = new THREE.Clock();
   const exclamationtSizeByPlayer = 10;
 
-  exclamationtMesh.position.x = 12;
-  exclamationtMesh.position.y = -1;
-  exclamationtMesh.position.z = -43;
+  exclamationtMesh.position.x = 11.5;
+  exclamationtMesh.position.y = -3.5;
+  exclamationtMesh.position.z = -38.5;
   const keyController = new Keycontroller();
-
-  useFrame((state, delta, frame) => {
-    exclamationtMesh.name = "exclamationt";
-    if (keyController.keys["KeyG"]) {
-      console.log("g누른ㄱ");
-    }
-  });
 
   return (
     <>

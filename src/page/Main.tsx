@@ -25,16 +25,23 @@ import { CatQuestModal1 } from "../component/Quest/CatQuestModal1";
 import { MemoriesModal } from "../component/MemoriesModal";
 import { HouseGoMenu } from "../component/HouseGoMenu";
 import HouseOut from "../component/Mesh/HouseOut";
-import QuestionMark from "../component/Mesh/QuestionMark";
+import CatQuestionMark from "../component/Mesh/CatQuestionMark";
+import { QuestModal } from "../component/QuestModal";
+import Fox from "../component/Mesh/Fox";
+import FoxQuestionMark from "../component/Mesh/FoxQuestionMark";
+import { FoxQuestModal } from "../component/Quest/FoxQuestModal";
+import KittyKey from "../component/Mesh/KittyKey";
+import KittyKeyQuestionMark from "../component/Mesh/KittyKeyQuestionMark";
+import Log from "../component/Mesh/Log";
+import { FindKeyModal } from "../component/Quest/FindKeyModal";
 
 function RoadMesh(props: JSX.IntrinsicElements["mesh"]) {
-  // load GLTF
   const gltf = useLoader(GLTFLoader, "/adventure_map.glb");
-  // console.log(gltf);
-  // handle 3d model
+  const roadMesh = gltf.scene.children[0];
+  roadMesh.rotation.z = Math.PI;
+  roadMesh.position.y = -450;
+  roadMesh.position.z = 1400;
   useFrame((state, delta, frame) => {
-    const mesh = gltf.scene.children[0];
-    mesh.rotation.z = Math.PI;
     // mesh.rotation.x = state.clock.getElapsedTime();
   });
   return (
@@ -78,17 +85,21 @@ export const Main = () => {
         <RecoilBridge>
           <Suspense fallback={null}>
             <RoadMesh position={[0, 1, 0]} />
+            <Log />
           </Suspense>
           <Suspense fallback={null}>
             <Player canvasProp={canvas} />
           </Suspense>
           <Suspense fallback={null}>
             <Cat />
-            {/* <Exclamation></Exclamation> */}
-            <QuestionMark />
+            <CatQuestionMark />
+            <FoxQuestionMark />
           </Suspense>
           <Suspense fallback={null}>
             <HouseOut />
+            <Fox />
+            <KittyKey />
+            <KittyKeyQuestionMark />
           </Suspense>
         </RecoilBridge>
         <pointLight position={[10, 10, 10]} />
@@ -98,7 +109,10 @@ export const Main = () => {
       <QuestionModal />
       <BagModal />
       <CatQuestModal1 />
+      <FoxQuestModal />
       <HouseGoMenu />
+      <QuestModal />
+      <FindKeyModal />
     </>
   );
 };
