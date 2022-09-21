@@ -45,6 +45,8 @@ const Player = (props) => {
   camera.zoom = 0.8;
 
   const controls = new PointerLockControls(camera, renderer.domElement);
+
+  controls.pointerSpeed = 0.2;
   const keyController = new Keycontroller();
 
   useEffect(() => {
@@ -104,10 +106,9 @@ const Player = (props) => {
   });
 
   playerMesh.name = "player";
-  // if (foward === "start") {
 
   playerMesh.rotation.y = Math.PI;
-  // }
+
   useThree(({ camera }) => {
     camera.position.set(
       playerMesh.position.x,
@@ -126,7 +127,6 @@ const Player = (props) => {
   let playerJump = false;
   let catJump = false;
 
-  console.log(questProgressGather);
   if (questProgressGather.q1TunaCan === "finish") {
     catMesh.rotation.z = Math.PI;
   }
@@ -193,13 +193,25 @@ const Player = (props) => {
           }
         }
 
-        playerMesh.position.z -= playerSpeed;
+        if (keyController.keys.ShiftLeft) {
+          playerMesh.position.z -= playerSpeed * 3;
+          playerActions[1].setEffectiveTimeScale(1.2);
+        } else {
+          playerMesh.position.z -= playerSpeed;
+          playerActions[1].setEffectiveTimeScale(0.7);
+        }
       }
     }
 
     if (keyController.keys["KeyS"] || keyController.keys["ArrowDown"]) {
       if (playerMesh.position.z < 1) {
-        playerMesh.position.z += playerSpeed;
+        if (keyController.keys.ShiftLeft) {
+          playerMesh.position.z += playerSpeed * 3;
+          playerActions[1].setEffectiveTimeScale(1.2);
+        } else {
+          playerMesh.position.z += playerSpeed;
+          playerActions[1].setEffectiveTimeScale(0.7);
+        }
         if (playerMesh.rotation.y >= 0) {
           playerMesh.rotation.y -= delta * Math.PI * 2;
 
@@ -268,7 +280,7 @@ const Player = (props) => {
         console.log("여우g");
       }
 
-      if (playerMesh.position.z > -26 && playerMesh.position.z < -22.5) {
+      if (playerMesh.position.z > -30 && playerMesh.position.z < -22.5) {
         setBagGather({ ...bagGather, key1: true });
         setFindObjectGather({
           ...findObjectGather,
@@ -280,6 +292,10 @@ const Player = (props) => {
 
       if (playerMesh.position.z > -60 && playerMesh.position.z < -46) {
         setQuestGather({ ...questGatherState, birdQuestModal: true });
+      }
+
+      if (playerMesh.position.z > -98 && playerMesh.position.z < -67) {
+        setQuestGather({ ...questGatherState, penguinQuestModal: true });
       }
 
       // }

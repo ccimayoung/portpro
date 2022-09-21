@@ -9,6 +9,7 @@ import {
 import Keycontroller from "../function/Keycontroller";
 import { EvColumnBox, EvFontBox, EvKoreanFont } from "../style/EvStyle";
 import { ProfileTextFont } from "./MemoriesModal";
+import "../style/a-tag.css";
 
 const Slide = keyframes`
     0% {

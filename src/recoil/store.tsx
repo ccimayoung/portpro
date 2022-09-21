@@ -11,6 +11,7 @@ export type modalGather = {
   todowithModal?: boolean;
   utModal?: boolean;
   sgModal?: boolean;
+  finishModal?: boolean;
 };
 
 export const modalGatherState = atom<modalGather>({
@@ -24,6 +25,7 @@ export const modalGatherState = atom<modalGather>({
     todowithModal: false,
     utModal: false,
     sgModal: false,
+    finishModal: false,
   },
 });
 
@@ -65,6 +67,7 @@ export type findObjectGather = {
   projectUt: boolean;
   projectSg: boolean;
   projectModal: boolean;
+  photoModal?: boolean;
 };
 
 export const findObjectGatherState = atom<findObjectGather>({
@@ -80,12 +83,12 @@ export const findObjectGatherState = atom<findObjectGather>({
     projectUt: false,
     projectSg: false,
     projectModal: false,
+    photoModal: false,
   },
 });
 
 export type memoriesGather = {
   photoMemory?: boolean;
-  skillsMemory?: boolean;
   utMemory?: boolean;
   todowithMemory?: boolean;
   sgMemory?: boolean;
@@ -95,7 +98,6 @@ export const memoriesGatherState = atom<memoriesGather>({
   key: "memoriesGatherState",
   default: {
     photoMemory: false,
-    skillsMemory: false,
     utMemory: false,
     todowithMemory: false,
     sgMemory: false,
@@ -111,6 +113,7 @@ export type questGather = {
   catQuestModal1?: boolean;
   foxQuestModal?: boolean;
   birdQuestModal?: boolean;
+  penguinQuestModal?: boolean;
 };
 
 export const questGatherState = atom<questGather>({
@@ -119,6 +122,7 @@ export const questGatherState = atom<questGather>({
     catQuestModal1: false,
     foxQuestModal: false,
     birdQuestModal: false,
+    penguinQuestModal: false,
   },
 });
 

@@ -182,14 +182,16 @@ export const BirdWord = () => {
         onClick={() => {
           setQuestGather({
             ...questGatherState,
-            catQuestModal1: false,
+            birdQuestModal: false,
           });
           setQuestProgressGather({
             ...questProgressGather,
-            q2Key: "finish",
-            q3Port: "ing",
+            q4Photo: "ing",
           });
-          setTimeout(() => nav("/photoparticle"), 200);
+          const navTimer = setTimeout(() => {
+            nav("/photoparticle");
+            clearTimeout(navTimer);
+          }, 200);
         }}
       >
         사진 파티클 보러가기

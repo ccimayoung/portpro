@@ -33,7 +33,7 @@ function BoardSG(props) {
           onPointerOut={() => setHover(false)}
         >
           <boxGeometry attach="geometry" args={[6, 2.7, 0.5]} />
-          <meshBasicMaterial
+          <meshStandardMaterial
             attach="material"
             map={sg}
             color={hover ? "#ffb1dc" : "white"}

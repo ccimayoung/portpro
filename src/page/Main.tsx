@@ -20,7 +20,12 @@ import { BottomMenu } from "../component/BottomMenu";
 import { BagModal } from "../component/BagModal";
 import { QuestionModal } from "../component/QuestionModal";
 import Exclamation from "../component/Mesh/Exclamation";
-import { modalGatherState, questGatherState } from "../recoil/store";
+import {
+  findObjectGatherState,
+  modalGatherState,
+  questGatherState,
+  questProgressGatherState,
+} from "../recoil/store";
 import { CatQuestModal1 } from "../component/Quest/CatQuestModal1";
 import { MemoriesModal } from "../component/MemoriesModal";
 import { HouseGoMenu } from "../component/HouseGoMenu";
@@ -37,6 +42,10 @@ import { FindKeyModal } from "../component/Quest/FindKeyModal";
 import Bird from "../component/Mesh/Bird";
 import BirdQuestionMark from "../component/Mesh/BirdQuestionMark";
 import { BirdQuestModal } from "../component/Quest/BirdQuestModal";
+import Penguin from "../component/Mesh/Penguin";
+import PenguinQuestionMark from "../component/Mesh/PenguinQuestionMark";
+import { PenguinQuestModal } from "../component/Quest/PenguinQuestModal";
+import { FinishModal } from "../component/FinishModal";
 
 function RoadMesh(props: JSX.IntrinsicElements["mesh"]) {
   const gltf = useLoader(GLTFLoader, "/adventure_map.glb");
@@ -63,6 +72,12 @@ export const Main = () => {
   const ref = useRef<any>();
   const canvas = ref.current;
   const RecoilBridge = useRecoilBridgeAcrossReactRoots_UNSTABLE();
+  const [questProgressGather, setQuestProgressGather] = useRecoilState(
+    questProgressGatherState
+  );
+  const [findObjectGather, setFindObjectGather] = useRecoilState(
+    findObjectGatherState
+  );
 
   // const [questGather, setQuestGather] = useRecoilState(questGatherState);
   // const keyUpEvent = (e: React.KeyboardEvent<any>) => {
@@ -83,7 +98,7 @@ export const Main = () => {
         }}
         // onKeyUp={keyUpEvent}
       >
-        <ambientLight />
+        <ambientLight intensity={0.8} />
         <directionalLight />
         <RecoilBridge>
           <Suspense fallback={null}>
@@ -95,18 +110,23 @@ export const Main = () => {
           </Suspense>
           <Suspense fallback={null}>
             <Cat />
-            <CatQuestionMark />
+            {questProgressGather.q1TunaCan !== "finish" && <CatQuestionMark />}
             <FoxQuestionMark />
           </Suspense>
           <Suspense fallback={null}>
             <HouseOut />
             <Fox />
-            <KittyKey />
-            <KittyKeyQuestionMark />
+            {!findObjectGather.keyFind && (
+              <>
+                <KittyKey /> <KittyKeyQuestionMark />
+              </>
+            )}
           </Suspense>
           <Suspense fallback={null}>
             <Bird />
             <BirdQuestionMark />
+            <Penguin />
+            <PenguinQuestionMark />
           </Suspense>
         </RecoilBridge>
         <pointLight position={[10, 10, 10]} />
@@ -121,6 +141,8 @@ export const Main = () => {
       <QuestModal />
       <FindKeyModal />
       <BirdQuestModal />
+      <PenguinQuestModal />
+      <FinishModal />
     </>
   );
 };

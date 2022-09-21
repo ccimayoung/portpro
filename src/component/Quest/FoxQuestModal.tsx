@@ -191,7 +191,10 @@ export const FoxWord = () => {
                 q2Key: "finish",
                 q3Port: "ing",
               });
-              setTimeout(() => nav("/houseinmap"), 200);
+              const navTimer = setTimeout(() => {
+                nav("/houseinmap");
+                clearTimeout(navTimer);
+              }, 200);
             }}
           >
             집 안으로 이동!
@@ -230,10 +233,10 @@ export const FoxWord = () => {
                 ...questProgressGather,
                 q2Key: "ing",
               });
-              setTimeout(
-                () => setmodalGather({ ...modalGather, questModal: true }),
-                200
-              );
+              const modalTimeOut = setTimeout(() => {
+                setmodalGather({ ...modalGather, questModal: true });
+                clearTimeout(modalTimeOut);
+              }, 200);
             }}
           >
             알겠어!

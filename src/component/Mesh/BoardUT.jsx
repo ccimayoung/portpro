@@ -33,7 +33,7 @@ function BoardUT(props) {
           onPointerOut={() => setHover(false)}
         >
           <boxGeometry attach="geometry" args={[6, 2.7, 0.5]} />
-          <meshBasicMaterial
+          <meshStandardMaterial
             attach="material"
             map={todowith}
             color={hover ? "#ffb1dc" : "white"}

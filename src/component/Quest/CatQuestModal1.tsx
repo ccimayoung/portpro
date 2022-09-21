@@ -211,10 +211,10 @@ export const CatWord = () => {
                 ...questProgressGather,
                 q1TunaCan: "ing",
               });
-              setTimeout(
-                () => setmodalGather({ ...modalGather, questModal: true }),
-                200
-              );
+              const questTimeOut = setTimeout(() => {
+                setmodalGather({ ...modalGather, questModal: true });
+                clearTimeout(questTimeOut);
+              }, 200);
             }}
           >
             알겠어!

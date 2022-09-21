@@ -27,7 +27,11 @@ import { BottomMenu } from "../component/BottomMenu";
 import { BagModal } from "../component/BagModal";
 import { QuestionModal } from "../component/QuestionModal";
 import Exclamation from "../component/Mesh/Exclamation";
-import { modalGatherState, questGatherState } from "../recoil/store";
+import {
+  findObjectGatherState,
+  modalGatherState,
+  questGatherState,
+} from "../recoil/store";
 import { CatQuestModal1 } from "../component/Quest/CatQuestModal1";
 import TunaCan1 from "../component/Mesh/TunaCan1";
 import TunaCan2 from "../component/Mesh/TunaCan2";
@@ -47,7 +51,6 @@ import { MemoriesModal } from "../component/MemoriesModal";
 import { FindTuna1Modal } from "../component/Quest/FindTuna1Modal";
 import { FindTuna2Modal } from "../component/Quest/FindTuna2Modal";
 import { HouseInExplainModal } from "../component/HouseInExplainModal";
-import { HouseInMenu } from "../component/HouseInMenu";
 import { QuestModal } from "../component/QuestModal";
 import { FindProjectModal } from "../component/Quest/FindProjectModal";
 
@@ -86,6 +89,9 @@ export const HouseInMap = () => {
   const [modalGather, setmodalGather] = useRecoilState(modalGatherState);
   const canvas = ref.current;
   const RecoilBridge = useRecoilBridgeAcrossReactRoots_UNSTABLE();
+  const [findObjectGather, setFindObjectGather] = useRecoilState(
+    findObjectGatherState
+  );
 
   // const [questGather, setQuestGather] = useRecoilState(questGatherState);
   // const keyUpEvent = (e: React.KeyboardEvent<any>) => {
@@ -118,8 +124,8 @@ export const HouseInMap = () => {
             <BoardUT />
             <BoardSG />
             <HouseInMesh />
-            <TunaCan1 />
-            <TunaCan2 />
+            {!findObjectGather.tonaCan1Find && <TunaCan1 />}
+            {!findObjectGather.tonaCan2Find && <TunaCan2 />}
           </Suspense>
           <OrbitControls />
         </RecoilBridge>
@@ -140,7 +146,6 @@ export const HouseInMap = () => {
       <FindTuna1Modal />
       <FindTuna2Modal />
       <HouseInExplainModal />
-      <HouseInMenu />
       <QuestModal />
       <FindProjectModal />
     </>

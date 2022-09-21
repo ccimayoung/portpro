@@ -27,23 +27,20 @@ import { BottomMenu } from "../component/BottomMenu";
 import { BagModal } from "../component/BagModal";
 import { QuestionModal } from "../component/QuestionModal";
 import Exclamation from "../component/Mesh/Exclamation";
-import { modalGatherState, questGatherState } from "../recoil/store";
-import { CatQuestModal1 } from "../component/Quest/CatQuestModal1";
-import TunaCan1 from "../component/Mesh/TunaCan1";
-import TunaCan2 from "../component/Mesh/TunaCan2";
-import BoardTodowith from "../component/Mesh/BoardTodowith";
 import {
-  Selection,
-  Select,
-  EffectComposer,
-  Outline,
-} from "@react-three/postprocessing";
+  findObjectGatherState,
+  modalGatherState,
+  questGatherState,
+} from "../recoil/store";
+
 import { MemoriesModal } from "../component/MemoriesModal";
+
 import { TextureLoader } from "three/src/loaders/TextureLoader";
+import { QuestModal } from "../component/QuestModal";
+import { FindPhotoModal } from "../component/Quest/FindPhotoModal";
 
 function PhotoParticleMesh(props: JSX.IntrinsicElements["mesh"]) {
-  const gltf = useLoader(GLTFLoader, "/rick_and_morty_garage_fan_art.glb");
-  const { gl, camera }: { gl: any; camera: any } = useThree();
+  const { gl, camera, scene } = useThree<any>();
   const renderer = gl;
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(window.devicePixelRatio > 1 ? 2 : 1);
@@ -52,25 +49,76 @@ function PhotoParticleMesh(props: JSX.IntrinsicElements["mesh"]) {
   camera.near = 0.1;
   camera.far = 1000;
 
-  const imagePanels = [];
+  const sphereRef = useRef<any>(null);
 
-  const photo1 = useLoader(TextureLoader, "/assets/사진/사진1.jpg");
+  const positionArray = sphereRef.current?.attributes.position.array;
 
-  useFrame((state, delta, frame) => {
-    // mesh.rotation.x = state.clock.getElapsedTime();
-  });
+  let plane;
+
+  const planeMesh1 = new THREE.Mesh(
+    new THREE.PlaneGeometry(0.3, 0.3),
+    new THREE.MeshStandardMaterial({
+      side: THREE.DoubleSide, // 양쪽면 보임
+      map: useLoader(TextureLoader, `/assets/사진/사진1.jpg`),
+    })
+  );
+  const planeMesh2 = new THREE.Mesh(
+    new THREE.PlaneGeometry(0.3, 0.3),
+    new THREE.MeshStandardMaterial({
+      side: THREE.DoubleSide, // 양쪽면 보임
+      map: useLoader(TextureLoader, `/assets/사진/사진3.jpg`),
+    })
+  );
+  const planeMesh3 = new THREE.Mesh(
+    new THREE.PlaneGeometry(0.3, 0.3),
+    new THREE.MeshStandardMaterial({
+      side: THREE.DoubleSide, // 양쪽면 보임
+      map: useLoader(TextureLoader, `/assets/사진/사진6.jpg`),
+    })
+  );
+  const planeMesh4 = new THREE.Mesh(
+    new THREE.PlaneGeometry(0.3, 0.3),
+    new THREE.MeshStandardMaterial({
+      side: THREE.DoubleSide, // 양쪽면 보임
+      map: useLoader(TextureLoader, `/assets/사진/사진4.jpg`),
+    })
+  );
+
+  // const preesG = useLoader(TextureLoader, "/assets/G 누르기.png");
+
+  if (positionArray) {
+    for (let i = 0; i < positionArray.length; i += 3) {
+      // textuerLoaderLoad = textureLoader.load(
+      //   `/assets/사진/사진${Math.ceil(Math.random() * 5)}.jpg`
+      // );
+      if ((i / 3) % 4 === 0) {
+        plane = planeMesh1.clone();
+      } else if ((i / 3) % 4 === 1) {
+        plane = planeMesh2.clone();
+      } else if ((i / 3) % 4 === 2) {
+        plane = planeMesh3.clone();
+      } else {
+        plane = planeMesh4.clone();
+      }
+
+      if (plane) {
+        // console.log(plane);
+        plane.position.x = positionArray[i];
+        plane.position.y = positionArray[i + 1];
+        plane.position.z = positionArray[i + 2];
+
+        plane.lookAt(0, 0, 0); // 가운데 바라보게 설정
+
+        scene.add(plane);
+      }
+    }
+  }
+
+  useFrame((state, delta, frame) => {});
   return (
     <>
-      <mesh>
-        <planeGeometry attach="geometry" args={[0.3, 0.3]} />
-        <meshStandardMaterial
-          map={photo1}
-          attach="material"
-          color="#ffb1dc"
-          visible={true}
-        />
-
-        <primitive object={gltf.scene} scale={0.005} />
+      <mesh visible={false}>
+        <sphereGeometry attach="geometry" args={[2, 16, 16]} ref={sphereRef} />
       </mesh>
     </>
   );
@@ -82,19 +130,16 @@ export const PhotoParticle = () => {
   const [modalGather, setmodalGather] = useRecoilState(modalGatherState);
   const canvas = ref.current;
   const RecoilBridge = useRecoilBridgeAcrossReactRoots_UNSTABLE();
-
-  // const [questGather, setQuestGather] = useRecoilState(questGatherState);
-  // const keyUpEvent = (e: React.KeyboardEvent<any>) => {
-  //   console.log(e);
-  //   if (e.key === "G") {
-  //     setQuestGather({ ...questGatherState, catQuestModal1: true });
-  //   }
-  // };
+  const [findObjectGather, setFindObjectGather] = useRecoilState(
+    findObjectGatherState
+  );
 
   useEffect(() => {
-    setmodalGather({ ...modalGather, houseInExplainModal: true });
+    const photoModalTime = setTimeout(() => {
+      setFindObjectGather({ ...findObjectGather, photoModal: true });
+      clearTimeout(photoModalTime);
+    }, 300);
   }, []);
-
   return (
     <>
       <Canvas
@@ -107,43 +152,20 @@ export const PhotoParticle = () => {
         // onKeyUp={keyUpEvent}
       >
         <ambientLight color={"white"} intensity={0.5} />
-        {/* <directionalLight /> */}
         <RecoilBridge>
-          <Suspense fallback={null}></Suspense>
+          <Suspense fallback={null}>
+            <PhotoParticleMesh />
+          </Suspense>
           <OrbitControls />
         </RecoilBridge>
-        {/* <pointLight position={[30, 10, 10]} /> */}
-        <Selection>
-          <EffectComposer multisampling={8} autoClear={false}>
-            <Outline blur visibleEdgeColor={1} edgeStrength={100} width={500} />
-          </EffectComposer>
-        </Selection>
       </Canvas>
       <BottomMenu />
       <MemoriesModal />
       <QuestionModal />
+      <QuestModal />
       <BagModal />
+      <FindPhotoModal />
     </>
   );
   // };
-
-  // export class ImagePanel {
-  //   constructor(info) {
-  //     const texture = info.textureLoader.load(info.imageSrc);
-  //     const material = new MeshBasicMaterial({
-  //       map: texture,
-  //       side: DoubleSide,
-  //     });
-
-  //     this.mesh = new Mesh(info.geometry, material);
-  //     this.mesh.position.set(info.x, info.y, info.z);
-  //     this.mesh.lookAt(0, 0, 0);
-
-  //     // Sphere 상태의 회전각을 저장해둠. 날라가는게 좋으면 여기 빼기
-  //     this.sphereRotationX = this.mesh.rotation.x;
-  //     this.sphereRotationY = this.mesh.rotation.y;
-  //     this.sphereRotationZ = this.mesh.rotation.z;
-
-  //     info.scene.add(this.mesh);
-  //   }
 };
