@@ -21,7 +21,6 @@ function CatQuestionMark(props) {
   // const cameraPosition = new THREE.Vector3(1, 5, 5);
   // console.log(gltf.scene.traverse);
   const [questGather, setQuestGather] = useRecoilState(questGatherState);
-  console.log(playerPosition);
   questionMesh.rotation.x = Math.PI / 180;
   // questionMesh.position.x = 5;
   questionMesh.position.y = -3.7;
@@ -30,12 +29,12 @@ function CatQuestionMark(props) {
 
   useFrame((state, delta, frame) => {
     questionMesh.name = "CatQuestionMark";
-    if (playerPosition[2] > -7.3 && playerPosition[2] < -3.3) {
-      if (keyController.keys["KeyG"]) {
-        setQuestGather({ ...questGatherState, catQuestModal1: true });
-        console.log("고양이g");
-      }
-    }
+    // if (playerPosition[2] > -7.3 && playerPosition[2] < -3.3) {
+    //   if (keyController.keys["KeyG"]) {
+    //     setQuestGather({ ...questGatherState, catQuestModal1: true });
+    //     console.log("고양이g");
+    //   }
+    // }
   });
 
   const preesG = useLoader(TextureLoader, "/assets/G 누르기.png");

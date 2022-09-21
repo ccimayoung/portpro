@@ -1,7 +1,12 @@
 import styled, { keyframes } from "styled-components";
 import { useRecoilState } from "recoil";
 import React, { useState, useRef } from "react";
-import { modalGatherState } from "../../recoil/store";
+import {
+  findObjectGatherState,
+  memoriesGatherState,
+  modalGatherState,
+  questProgressGatherState,
+} from "../../recoil/store";
 import {
   EvColumnBox,
   EvFontBox,
@@ -70,12 +75,36 @@ export const QuitImg = styled.img`
 
 export const SgModal = () => {
   const [modalGather, setmodalGather] = useRecoilState(modalGatherState);
+  const [findObjectGather, setFindObjectGather] = useRecoilState(
+    findObjectGatherState
+  );
+  const [questProgressGather, setQuestProgressGather] = useRecoilState(
+    questProgressGatherState
+  );
+  const [memoriesGather, setMemoriesGather] =
+    useRecoilState(memoriesGatherState);
 
   return (
     <>
       {modalGather.sgModal && (
         <ModalBackground
-          onClick={() => setmodalGather({ ...modalGather, sgModal: false })}
+          onClick={() => {
+            setMemoriesGather({ ...memoriesGather, sgMemory: true });
+
+            const projectTimer = setTimeout(() => {
+              setmodalGather({ ...modalGather, sgModal: false });
+              const memoryTimer = setTimeout(() => {
+                setFindObjectGather({
+                  ...findObjectGather,
+                  projectSg: true,
+                  projectModal: true,
+                });
+                clearTimeout(memoryTimer);
+              }, 300);
+
+              clearTimeout(projectTimer);
+            }, 200);
+          }}
         >
           <BoxWrap
             onClick={(e) => {
@@ -86,7 +115,21 @@ export const SgModal = () => {
               src="/assets/reject.png"
               alt="닫음"
               onClick={() => {
-                setmodalGather({ ...modalGather, sgModal: false });
+                setMemoriesGather({ ...memoriesGather, sgMemory: true });
+
+                const projectTimer = setTimeout(() => {
+                  setmodalGather({ ...modalGather, sgModal: false });
+                  const memoryTimer = setTimeout(() => {
+                    setFindObjectGather({
+                      ...findObjectGather,
+                      projectSg: true,
+                      projectModal: true,
+                    });
+                    clearTimeout(memoryTimer);
+                  }, 300);
+
+                  clearTimeout(projectTimer);
+                }, 200);
               }}
             />
             <TitleBox>

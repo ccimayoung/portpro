@@ -34,6 +34,9 @@ import KittyKey from "../component/Mesh/KittyKey";
 import KittyKeyQuestionMark from "../component/Mesh/KittyKeyQuestionMark";
 import Log from "../component/Mesh/Log";
 import { FindKeyModal } from "../component/Quest/FindKeyModal";
+import Bird from "../component/Mesh/Bird";
+import BirdQuestionMark from "../component/Mesh/BirdQuestionMark";
+import { BirdQuestModal } from "../component/Quest/BirdQuestModal";
 
 function RoadMesh(props: JSX.IntrinsicElements["mesh"]) {
   const gltf = useLoader(GLTFLoader, "/adventure_map.glb");
@@ -101,6 +104,10 @@ export const Main = () => {
             <KittyKey />
             <KittyKeyQuestionMark />
           </Suspense>
+          <Suspense fallback={null}>
+            <Bird />
+            <BirdQuestionMark />
+          </Suspense>
         </RecoilBridge>
         <pointLight position={[10, 10, 10]} />
       </Canvas>
@@ -113,6 +120,7 @@ export const Main = () => {
       <HouseGoMenu />
       <QuestModal />
       <FindKeyModal />
+      <BirdQuestModal />
     </>
   );
 };

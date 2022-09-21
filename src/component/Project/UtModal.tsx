@@ -1,7 +1,12 @@
 import styled, { keyframes } from "styled-components";
 import { useRecoilState } from "recoil";
 import React, { useState, useRef } from "react";
-import { modalGatherState } from "../../recoil/store";
+import {
+  findObjectGatherState,
+  memoriesGatherState,
+  modalGatherState,
+  questProgressGatherState,
+} from "../../recoil/store";
 import {
   EvColumnBox,
   EvFontBox,
@@ -71,12 +76,36 @@ export const QuitImg = styled.img`
 
 export const UtModal = () => {
   const [modalGather, setmodalGather] = useRecoilState(modalGatherState);
+  const [findObjectGather, setFindObjectGather] = useRecoilState(
+    findObjectGatherState
+  );
+  const [questProgressGather, setQuestProgressGather] = useRecoilState(
+    questProgressGatherState
+  );
+  const [memoriesGather, setMemoriesGather] =
+    useRecoilState(memoriesGatherState);
 
   return (
     <>
       {modalGather.utModal && (
         <ModalBackground
-          onClick={() => setmodalGather({ ...modalGather, utModal: false })}
+          onClick={() => {
+            setMemoriesGather({ ...memoriesGather, utMemory: true });
+
+            const projectTimer = setTimeout(() => {
+              setmodalGather({ ...modalGather, utModal: false });
+              const memoryTimer = setTimeout(() => {
+                setFindObjectGather({
+                  ...findObjectGather,
+                  projectUt: true,
+                  projectModal: true,
+                });
+                clearTimeout(memoryTimer);
+              }, 300);
+
+              clearTimeout(projectTimer);
+            }, 200);
+          }}
         >
           <BoxWrap
             onClick={(e) => {
@@ -87,7 +116,21 @@ export const UtModal = () => {
               src="/assets/reject.png"
               alt="닫음"
               onClick={() => {
-                setmodalGather({ ...modalGather, utModal: false });
+                setMemoriesGather({ ...memoriesGather, utMemory: true });
+
+                const projectTimer = setTimeout(() => {
+                  setmodalGather({ ...modalGather, utModal: false });
+                  const memoryTimer = setTimeout(() => {
+                    setFindObjectGather({
+                      ...findObjectGather,
+                      projectUt: true,
+                      projectModal: true,
+                    });
+                    clearTimeout(memoryTimer);
+                  }, 300);
+
+                  clearTimeout(projectTimer);
+                }, 200);
               }}
             />
             <TitleBox>
@@ -110,7 +153,6 @@ export const UtModal = () => {
                 width={550}
                 height={200}
                 margin="20px auto 0 auto"
-                backgroundColor="pink"
               >
                 <UtSplide />
               </EvColumnBox>

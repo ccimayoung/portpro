@@ -115,7 +115,7 @@ export const FindKeyModal = () => {
             </QuitBox>
             <img
               style={{
-                height: "350px",
+                height: "330px",
                 margin: "70px auto 30px auto ",
               }}
               src="/assets/가방/열쇠.png"

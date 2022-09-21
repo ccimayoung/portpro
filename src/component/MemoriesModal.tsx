@@ -1,7 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { useRecoilState } from "recoil";
 import React, { useState } from "react";
-import { modalGatherState } from "../recoil/store";
+import { memoriesGatherState, modalGatherState } from "../recoil/store";
 import {
   EvColumnBox,
   EvFontBox,
@@ -81,10 +81,20 @@ const MemoriesContentWrap = styled.div`
 export const MemoryPartWrap = styled(EvColumnBox)`
   box-sizing: content-box;
   padding: 15px;
-  /* border: 1px solid black; */
+  border-radius: 30px;
   display: flex;
   width: 675px;
   background-color: #ddffc3;
+  margin: 0 auto 70px 0;
+`;
+
+export const NoMemoryPartWrap = styled(EvColumnBox)`
+  box-sizing: content-box;
+  padding: 15px;
+  border-radius: 30px;
+  border: 2px dashed black;
+  display: flex;
+  width: 675px;
   margin: 0 auto 70px 0;
 `;
 
@@ -100,6 +110,8 @@ export const ProfileTextFont = styled(EvKoreanFont)`
 
 export const MemoriesModal = () => {
   const [modalGather, setmodalGather] = useRecoilState(modalGatherState);
+  const [memoriesGather, setMemoriesGather] =
+    useRecoilState(memoriesGatherState);
 
   return (
     <>
@@ -125,10 +137,14 @@ export const MemoriesModal = () => {
               className="Content Wrap"
               // backgroundColor="skyblue"
             >
-              <ProfileWrap />
-              <UtMemory />
-              <TodowithMemory />
-              <SgMemory />
+              {memoriesGather.photoMemory ? <ProfileWrap /> : <NoProfileWrap />}
+              {memoriesGather.utMemory ? <UtMemory /> : <NoUtMemory />}
+              {memoriesGather.todowithMemory ? (
+                <TodowithMemory />
+              ) : (
+                <NoTodowithMemory />
+              )}
+              {memoriesGather.sgMemory ? <SgMemory /> : <NoSgMemory />}
             </MemoriesContentWrap>
           </BoxWrap>
         </ModalBackground>
@@ -146,15 +162,15 @@ export const ProfileWrap = () => {
       <EvRowBox columnGap={25}>
         <EvColumnBox
           className="photo"
-          width={194}
-          height={260}
+          width={186}
+          height={249}
           borderRadius="30px"
           url={"url(/assets/프로필/프로필사진.jpg)"}
         ></EvColumnBox>
         <EvFontBox
           className="propile text"
           width={440}
-          height={260}
+          height={249}
           isAlignSide={true}
           isContentSide={true}
         >
@@ -239,7 +255,7 @@ export const UtMemory = () => {
           width={550}
           height={200}
           margin="20px auto 0 auto"
-          backgroundColor="pink"
+          // backgroundColor="pink"
         >
           <UtSplide />
         </EvColumnBox>
@@ -426,5 +442,184 @@ export const SgMemory = () => {
         </EvProjectBtnAble>
       </EvRowBox>
     </MemoryPartWrap>
+  );
+};
+
+export const NoProfileWrap = () => {
+  return (
+    <NoMemoryPartWrap className="UT">
+      <MemoryTitleBox margin="10px auto 30px auto ">
+        <TitleFont>Profile</TitleFont>
+      </MemoryTitleBox>
+      <EvRowBox columnGap={25}>
+        <EvColumnBox
+          className="photo"
+          width={186}
+          height={249}
+          borderRadius="30px"
+          border="2px dashed black"
+        >
+          <EvKoreanFont size={70} isBold={true}>
+            ?
+          </EvKoreanFont>
+        </EvColumnBox>
+        <EvFontBox
+          className="propile text"
+          width={440}
+          height={249}
+          isAlignSide={true}
+          isContentSide={true}
+        ></EvFontBox>
+      </EvRowBox>
+      <MemoryTitleBox margin="50px auto 30px auto ">
+        <TitleFont>Skils</TitleFont>
+      </MemoryTitleBox>
+      <EvRowBox columnGap={35} width={655} height={260}></EvRowBox>
+    </NoMemoryPartWrap>
+  );
+};
+
+export const NoUtMemory = () => {
+  return (
+    <NoMemoryPartWrap className="UT">
+      <MemoryTitleBox>
+        <TitleFont>우당탕탕 탐험일기</TitleFont>
+      </MemoryTitleBox>
+      <EvFontBox
+        className="subtitle"
+        //   backgroundColor="blue"
+        width={500}
+        height={20}
+        margin="5px auto 0px auto"
+      ></EvFontBox>
+      <EvColumnBox className="center wrap" margin="15px auto 0 auto">
+        <EvColumnBox
+          className="up photo"
+          width={550}
+          height={220}
+          margin="0px auto 0 auto"
+          border="2px dashed black"
+        >
+          {" "}
+          <EvKoreanFont size={70} isBold={true}>
+            ?
+          </EvKoreanFont>
+          {/* <UtSplide /> */}
+        </EvColumnBox>
+        <EvFontBox
+          className="under text"
+          width={675}
+          height={230}
+          margin="50px auto 20px auto"
+          // backgroundColor="blue"
+          isAlignSide={true}
+          isContentSide={true}
+        ></EvFontBox>
+      </EvColumnBox>
+      <EvRowBox
+        className="bottom botton wrap"
+        width={550}
+        height={50}
+        margin="0px auto auto auto"
+        // backgroundColor="green"
+        columnGap={15}
+      ></EvRowBox>
+    </NoMemoryPartWrap>
+  );
+};
+
+export const NoTodowithMemory = () => {
+  return (
+    <NoMemoryPartWrap className="todowith">
+      <MemoryTitleBox margin="10px auto 0 auto ">
+        <TitleFont>TODOWITH (투두윗)</TitleFont>
+      </MemoryTitleBox>
+      <EvFontBox
+        className="subtitle"
+        //   backgroundColor="blue"
+        width={500}
+        height={20}
+        margin="5px auto 0px auto"
+      ></EvFontBox>
+      <EvRowBox className="center wrap" margin="15px auto 0 auto">
+        <EvColumnBox
+          className="left photo"
+          width={190}
+          height={490}
+          margin="0 0 20px auto"
+          border="2px dashed black"
+          // backgroundColor="pink"
+        >
+          <EvKoreanFont size={70} isBold={true}>
+            ?
+          </EvKoreanFont>
+          {/* <TodowithSplide /> */}
+        </EvColumnBox>
+        <EvFontBox
+          className="right text"
+          width={475}
+          height={480}
+          margin="0 auto 40px 10px"
+          // backgroundColor="blue"
+          isAlignSide={true}
+          isContentSide={true}
+        ></EvFontBox>
+      </EvRowBox>
+      <EvRowBox
+        className="bottom botton wrap"
+        width={550}
+        height={50}
+        margin="0px auto auto auto"
+        // backgroundColor="green"
+        columnGap={15}
+      ></EvRowBox>
+    </NoMemoryPartWrap>
+  );
+};
+
+export const NoSgMemory = () => {
+  return (
+    <NoMemoryPartWrap className="sg">
+      <MemoryTitleBox>
+        <TitleFont>브릿지 게임</TitleFont>
+      </MemoryTitleBox>
+      <EvFontBox
+        className="subtitle"
+        //   backgroundColor="blue"
+        width={500}
+        height={20}
+        margin="5px auto 0px auto"
+      ></EvFontBox>
+      <EvColumnBox className="center wrap" margin="15px auto 0 auto">
+        <EvColumnBox
+          className="video"
+          width={550}
+          height={250}
+          margin="20px auto -50px auto"
+          border="2px dashed black"
+        >
+          <EvKoreanFont size={70} isBold={true}>
+            ?
+          </EvKoreanFont>
+        </EvColumnBox>
+        <EvFontBox
+          className="right text"
+          width={650}
+          height={230}
+          margin="50px auto 20px auto"
+          // backgroundColor="blue"
+          isAlignSide={true}
+          isContentSide={true}
+        ></EvFontBox>
+      </EvColumnBox>
+      <EvRowBox
+        className="bottom botton wrap"
+        width={550}
+        height={50}
+        margin="0px auto auto auto"
+        // backgroundColor="green"
+        columnGap={15}
+      ></EvRowBox>
+    </NoMemoryPartWrap>
   );
 };

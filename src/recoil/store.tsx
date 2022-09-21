@@ -59,8 +59,12 @@ export type findObjectGather = {
   tonaCan2Find?: boolean;
   tonaCan1Modal?: boolean;
   tonaCan2Modal?: boolean;
-  keyFind: boolean;
-  keyModal: boolean;
+  keyFind?: boolean;
+  keyModal?: boolean;
+  projectTodowith: boolean;
+  projectUt: boolean;
+  projectSg: boolean;
+  projectModal: boolean;
 };
 
 export const findObjectGatherState = atom<findObjectGather>({
@@ -72,6 +76,10 @@ export const findObjectGatherState = atom<findObjectGather>({
     tonaCan2Modal: false,
     keyFind: false,
     keyModal: false,
+    projectTodowith: false,
+    projectUt: false,
+    projectSg: false,
+    projectModal: false,
   },
 });
 
@@ -94,7 +102,7 @@ export const memoriesGatherState = atom<memoriesGather>({
   },
 });
 
-export const playerPositionState = atom({
+export const playerPositionState = atom<number[]>({
   key: "playerPositionState",
   default: [0, 0, 0],
 });
@@ -102,6 +110,7 @@ export const playerPositionState = atom({
 export type questGather = {
   catQuestModal1?: boolean;
   foxQuestModal?: boolean;
+  birdQuestModal?: boolean;
 };
 
 export const questGatherState = atom<questGather>({
@@ -109,6 +118,7 @@ export const questGatherState = atom<questGather>({
   default: {
     catQuestModal1: false,
     foxQuestModal: false,
+    birdQuestModal: false,
   },
 });
 

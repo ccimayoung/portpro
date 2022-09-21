@@ -17,10 +17,6 @@ function KittyKeyQuestionMark(props) {
   const [active, setActive] = useState(false);
   const [playerPosition, setPlayerPosition] =
     useRecoilState(playerPositionState);
-  const [bagGather, setBagGather] = useRecoilState(bagGatherState);
-  const [findObjectGather, setFindObjectGather] = useRecoilState(
-    findObjectGatherState
-  );
 
   // load GLTF
   const gltf = useLoader(GLTFLoader, "/question_icon_key.glb");
@@ -45,17 +41,6 @@ function KittyKeyQuestionMark(props) {
 
   useFrame((state, delta, frame) => {
     questionMesh.name = "FoxQuestionMark";
-    if (playerPosition[2] > -26 && playerPosition[2] < -22.5) {
-      if (keyController.keys["KeyG"]) {
-        setBagGather({ ...bagGather, key1: true });
-        setFindObjectGather({
-          ...findObjectGather,
-          keyModal: true,
-          keyFind: true,
-        });
-        console.log("키g");
-      }
-    }
   });
 
   const preesG = useLoader(TextureLoader, "/assets/G 누르기.png");

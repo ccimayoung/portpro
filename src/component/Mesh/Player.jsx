@@ -8,11 +8,13 @@ import { PointerLockControls } from "three/examples/jsm/controls/PointerLockCont
 import Keycontroller from "../../function/Keycontroller";
 import { useRecoilState } from "recoil";
 import {
+  bagGatherState,
+  findObjectGatherState,
   modalGatherState,
   playerPositionState,
   questGatherState,
+  questProgressGatherState,
 } from "../../recoil/store";
-import { CatQuestModal1 } from "../Quest/CatQuestModal1";
 
 const Player = (props) => {
   // const { canvas } = props;
@@ -23,6 +25,14 @@ const Player = (props) => {
     useRecoilState(playerPositionState);
   const [modalGather, setmodalGather] = useRecoilState(modalGatherState);
   const [questGather, setQuestGather] = useRecoilState(questGatherState);
+  const [bagGather, setBagGather] = useRecoilState(bagGatherState);
+  const [findObjectGather, setFindObjectGather] = useRecoilState(
+    findObjectGatherState
+  );
+  const [questProgressGather, setQuestProgressGather] = useRecoilState(
+    questProgressGatherState
+  );
+
   const [pressG, setPressG] = useState(false);
   const { gl, camera } = useThree();
   const renderer = gl;
@@ -36,28 +46,6 @@ const Player = (props) => {
 
   const controls = new PointerLockControls(camera, renderer.domElement);
   const keyController = new Keycontroller();
-  const conditions =
-    keyController.keys.KeyW ||
-    keyController.keys.ArrowUp ||
-    keyController.keys["KeyS"] ||
-    keyController.keys["ArrowDown"] ||
-    keyController.keys["KeyA"] ||
-    keyController.keys["ArrowLeft"] ||
-    keyController.keys["KeyD"] ||
-    keyController.keys["ArrowRight"] ||
-    keyController.keys["Space"];
-
-  // const keyDownEvent = (e) => {
-  //   if (e.key === "Enter") {
-  //     setPressG(true);
-  //   }
-  // };
-
-  // const keyUpEvent = (e) => {
-  //   if (e.key === "Enter") {
-  //     setPressG(false);
-  //   }
-  // };
 
   useEffect(() => {
     setPlayerPosition([
@@ -65,27 +53,50 @@ const Player = (props) => {
       playerMesh.position.y,
       playerMesh.position.z,
     ]);
-  }, [modalGather, pressG]);
+  }, [modalGather]);
 
-  const gltf = useLoader(GLTFLoader, "/캐릭터.glb");
+  const playerGltf = useLoader(GLTFLoader, "/캐릭터.glb");
+  const playerMesh = playerGltf.scene.children[0];
+  const playerActions = [];
+  const playerMixer = new THREE.AnimationMixer(playerMesh);
+  const playerSpeed = 0.02;
 
-  const playerMesh = gltf.scene.children[0];
-  const actions = [];
+  const catGltf = useLoader(GLTFLoader, "/cat.glb");
+  const catMesh = catGltf.scene.children[0];
+  const catSizeByPlayer = 830;
+  const catActions = [];
+  const catMixer = new THREE.AnimationMixer(catMesh);
+
   const clock = new THREE.Clock();
   const delta = clock.getDelta();
-  const mixer = new THREE.AnimationMixer(playerMesh);
-  // console.log(gltf.scene.traverse);
-  if (mixer) {
-    actions[0] = mixer.clipAction(gltf.animations[0]);
-    actions[1] = mixer.clipAction(gltf.animations[1]);
-    actions[1].setEffectiveTimeScale(0.7);
 
-    gltf.scene.traverse((child) => {
+  if (playerMixer) {
+    playerActions[0] = playerMixer.clipAction(playerGltf.animations[0]);
+    playerActions[1] = playerMixer.clipAction(playerGltf.animations[1]);
+    playerActions[1].setEffectiveTimeScale(0.7);
+
+    playerGltf.scene.traverse((child) => {
       // glb 그림자 설정
       if (child.isMesh) {
         child.castShadow = true;
       }
     });
+  }
+
+  if (catMixer) {
+    catActions[0] = catMixer.clipAction(catGltf.animations[0]);
+    catGltf.scene.traverse((child) => {
+      // glb 그림자 설정
+      if (child.isMesh) {
+        child.castShadow = true;
+      }
+    });
+  }
+
+  if (questProgressGather.q1TunaCan !== "finish") {
+    catMesh.position.x = catSizeByPlayer * 0.4;
+    catMesh.position.y = -catSizeByPlayer * 0.5;
+    catMesh.position.z = -catSizeByPlayer * 6;
   }
 
   controls.domElement.addEventListener("click", () => {
@@ -111,28 +122,34 @@ const Player = (props) => {
     // camera.zoom = 0.2;
     camera.updateProjectionMatrix();
   });
-  let jump = false;
-  let walk = false;
-  const playerSpeed = 0.02;
-  console.log(playerMesh.position);
 
+  let playerJump = false;
+  let catJump = false;
+
+  console.log(questProgressGather);
+  if (questProgressGather.q1TunaCan === "finish") {
+    catMesh.rotation.z = Math.PI;
+  }
   useFrame((state, delta, frame) => {
-    // playerMesh.position.y = 0.3;
-    // playerMesh.position.z = -2;
     const cameraPosition = new THREE.Vector3(
       playerMesh.position.x,
       playerMesh.position.y * 25 + 35,
       playerMesh.position.z + 80
     );
-    // camera.lookAt(playerMesh.position);
-    camera.position.x = cameraPosition.x + playerMesh.position.x; //맞춰서 카메라 이동
-
+    camera.position.x = cameraPosition.x + playerMesh.position.x;
     camera.position.z = cameraPosition.z + playerMesh.position.z * 24;
-
-    if (mixer) {
-      mixer.update(delta);
+    if (questProgressGather.q1TunaCan === "finish") {
+      catMesh.position.x = catSizeByPlayer * playerMesh.position.x;
+      catMesh.position.z = catSizeByPlayer * playerMesh.position.z + 830;
+    }
+    if (playerMixer) {
+      playerMixer.update(delta);
+    }
+    if (catMixer) {
+      catMixer.update(delta);
     }
 
+    //걸을때 애니메이션
     if (
       keyController.keys.KeyW ||
       keyController.keys.ArrowUp ||
@@ -144,39 +161,51 @@ const Player = (props) => {
       keyController.keys["ArrowRight"] ||
       keyController.keys["Space"]
     ) {
-      if (!actions[1].isRunning()) {
-        actions[1].reset();
-        actions[1].setLoop(THREE.LoopRepeat, Infinity);
-      }
-      actions[1].play();
-    } else {
-      actions[1].setLoop(THREE.LoopOnce);
-    }
+      if (!playerActions[1].isRunning()) {
+        playerActions[1].reset();
+        playerActions[1].setLoop(THREE.LoopRepeat, Infinity);
 
-    // if (Object.keys(keyController.keys).length) {
-    //   if (!actions[1].isRunning()) {
-    //     actions[1].reset();
-    //     actions[1].setLoop(THREE.LoopRepeat, Infinity);
-    //   }
-    //   actions[1].play();
-    // } else {
-    //   actions[1].setLoop(THREE.LoopOnce);
-    // }
+        if (questProgressGather.q1TunaCan === "finish") {
+          catActions[0].reset();
+          catActions[0].setLoop(THREE.LoopRepeat, Infinity);
+        }
+      }
+
+      playerActions[1].play();
+
+      if (questProgressGather.q1TunaCan === "finish") {
+        catActions[0].play();
+      }
+    } else {
+      playerActions[1].setLoop(THREE.LoopOnce);
+
+      if (questProgressGather.q1TunaCan === "finish") {
+        catActions[0].setLoop(THREE.LoopOnce);
+      }
+    }
 
     if (keyController.keys.KeyW || keyController.keys.ArrowUp) {
-      if (playerMesh.rotation.y <= Math.PI) {
-        playerMesh.rotation.y += delta * Math.PI * 2;
-      }
+      if (playerMesh.position.z > -80) {
+        if (playerMesh.rotation.y <= Math.PI) {
+          playerMesh.rotation.y += delta * Math.PI * 2;
+          if (questProgressGather.q1TunaCan === "finish") {
+            catMesh.rotation.z += delta * Math.PI * 2;
+          }
+        }
 
-      playerMesh.position.z -= playerSpeed;
+        playerMesh.position.z -= playerSpeed;
+      }
     }
-    walk = false;
 
     if (keyController.keys["KeyS"] || keyController.keys["ArrowDown"]) {
       if (playerMesh.position.z < 1) {
         playerMesh.position.z += playerSpeed;
         if (playerMesh.rotation.y >= 0) {
           playerMesh.rotation.y -= delta * Math.PI * 2;
+
+          if (questProgressGather.q1TunaCan === "finish") {
+            catMesh.rotation.z -= delta * Math.PI * 2;
+          }
         }
       }
     }
@@ -193,21 +222,67 @@ const Player = (props) => {
     }
 
     if (keyController.keys["Space"]) {
-      if (playerMesh.position.y <= 1 && !jump) {
+      if (playerMesh.position.y <= 1 && !playerJump) {
         playerMesh.position.y += 0.03;
 
         const jumpTimer = setTimeout(() => {
-          jump = true;
+          playerJump = true;
           playerMesh.position.y -= 0.03;
 
           clearTimeout(jumpTimer);
         }, 300);
       }
-      jump = false;
+      playerJump = false;
+
+      const catJumpTimer = setTimeout(() => {
+        if (
+          catMesh.position.y <= catSizeByPlayer &&
+          !catJump &&
+          questProgressGather.q1TunaCan === "finish"
+        ) {
+          catMesh.position.y += 0.03 * catSizeByPlayer;
+
+          const jumpTimer = setTimeout(() => {
+            catJump = true;
+            catMesh.position.y -= 0.03 * catSizeByPlayer;
+
+            clearTimeout(jumpTimer);
+          }, 300);
+        }
+        clearTimeout(catJumpTimer);
+      }, 500);
+
+      catJump = false;
     }
 
+    // if (keyController.keys["KeyG"]) {
     if (keyController.keys["KeyG"]) {
-      setPressG(!pressG);
+      console.log(playerMesh.position);
+      if (playerMesh.position.z > -7.3 && playerMesh.position.z < -3.3) {
+        setQuestGather({ ...questGatherState, catQuestModal1: true });
+        console.log("고양이g");
+      }
+
+      if (playerMesh.position.z > -15 && playerMesh.position.z < -11) {
+        setQuestGather({ ...questGatherState, foxQuestModal: true });
+        console.log("여우g");
+      }
+
+      if (playerMesh.position.z > -26 && playerMesh.position.z < -22.5) {
+        setBagGather({ ...bagGather, key1: true });
+        setFindObjectGather({
+          ...findObjectGather,
+          keyModal: true,
+          keyFind: true,
+        });
+        console.log("키g");
+      }
+
+      if (playerMesh.position.z > -60 && playerMesh.position.z < -46) {
+        setQuestGather({ ...questGatherState, birdQuestModal: true });
+      }
+
+      // }
     }
 
     // state.camera.position.z = playerMesh.position.z * 25 + 120;
@@ -222,8 +297,16 @@ const Player = (props) => {
   return (
     <>
       <primitive
-        object={gltf.scene}
+        object={playerGltf.scene}
         scale={25}
+        onPointerOver={() => setHover(true)}
+        onPointerOut={() => setHover(false)}
+        onClick={() => window.open("https://sketchfab.com/anthonyjamesgirdler")}
+        // camera={{ fov: 75 }}
+      />
+      <primitive
+        object={catGltf.scene}
+        scale={0.03}
         onPointerOver={() => setHover(true)}
         onPointerOut={() => setHover(false)}
         onClick={() => window.open("https://sketchfab.com/anthonyjamesgirdler")}

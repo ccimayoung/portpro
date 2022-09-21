@@ -27,16 +27,6 @@ function FoxQuestionMark(props) {
   // questionMesh.position.z = -QuestionSizeByPlayer * 4.9;
   const keyController = new Keycontroller();
 
-  useFrame((state, delta, frame) => {
-    questionMesh.name = "FoxQuestionMark";
-    if (playerPosition[2] > -15 && playerPosition[2] < -11) {
-      if (keyController.keys["KeyG"]) {
-        setQuestGather({ ...questGatherState, foxQuestModal: true });
-        console.log("여우g");
-      }
-    }
-  });
-
   const preesG = useLoader(TextureLoader, "/assets/G 누르기.png");
   return (
     <>

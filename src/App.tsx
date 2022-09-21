@@ -7,6 +7,7 @@ import { routeList } from "./route/routeList";
 import { RouterSwitch } from "./route/RouterSwitch";
 import { Main } from "./page";
 import { HouseInMap } from "./page/HouseInMap";
+import { PhotoParticle } from "./page/PhotoParticle";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/houseinmap" element={<HouseInMap />} />
+        <Route path="/photoparticle" element={<PhotoParticle />} />
       </Routes>
     </BrowserRouter>
   );

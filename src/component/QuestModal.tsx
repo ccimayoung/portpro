@@ -110,7 +110,7 @@ export const QuestModal = () => {
                 setmodalGather({ ...modalGather, questModal: false });
               }}
             />
-            <EvColumnBox
+            <EvColumnBox<any>
               className="right wrap"
               width={350}
               height={520}

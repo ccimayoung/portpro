@@ -49,6 +49,7 @@ import { FindTuna2Modal } from "../component/Quest/FindTuna2Modal";
 import { HouseInExplainModal } from "../component/HouseInExplainModal";
 import { HouseInMenu } from "../component/HouseInMenu";
 import { QuestModal } from "../component/QuestModal";
+import { FindProjectModal } from "../component/Quest/FindProjectModal";
 
 function HouseInMesh(props: JSX.IntrinsicElements["mesh"]) {
   const gltf = useLoader(GLTFLoader, "/rick_and_morty_garage_fan_art.glb");
@@ -141,6 +142,7 @@ export const HouseInMap = () => {
       <HouseInExplainModal />
       <HouseInMenu />
       <QuestModal />
+      <FindProjectModal />
     </>
   );
 };
