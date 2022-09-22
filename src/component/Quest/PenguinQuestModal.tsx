@@ -164,10 +164,10 @@ export const PenguinWord = () => {
   const nav = useNavigate();
   return (
     <>
-      {!memoriesGather.photoMemory &&
-      !memoriesGather.sgMemory &&
-      !memoriesGather.todowithMemory &&
-      !memoriesGather.utMemory ? (
+      {memoriesGather.photoMemory &&
+      memoriesGather.sgMemory &&
+      memoriesGather.todowithMemory &&
+      memoriesGather.utMemory ? (
         <>
           {/* 기억을 모두 찾았을때 */}
           <WordBox>

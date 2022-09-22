@@ -177,7 +177,12 @@ export const CatWord = () => {
               setQuestProgressGather({
                 ...questProgressGather,
                 q1TunaCan: "finish",
+                q4Photo: "ing",
               });
+              const questTimeOut = setTimeout(() => {
+                setmodalGather({ ...modalGather, questModal: true });
+                clearTimeout(questTimeOut);
+              }, 200);
             }}
           >
             퀘스트 완료!

@@ -22,13 +22,10 @@ import { QuestionModal } from "../component/QuestionModal";
 import Exclamation from "../component/Mesh/Exclamation";
 import {
   findObjectGatherState,
-  modalGatherState,
-  questGatherState,
   questProgressGatherState,
 } from "../recoil/store";
 import { CatQuestModal1 } from "../component/Quest/CatQuestModal1";
 import { MemoriesModal } from "../component/MemoriesModal";
-import { HouseGoMenu } from "../component/HouseGoMenu";
 import HouseOut from "../component/Mesh/HouseOut";
 import CatQuestionMark from "../component/Mesh/CatQuestionMark";
 import { QuestModal } from "../component/QuestModal";
@@ -78,14 +75,6 @@ export const Main = () => {
   const [findObjectGather, setFindObjectGather] = useRecoilState(
     findObjectGatherState
   );
-
-  // const [questGather, setQuestGather] = useRecoilState(questGatherState);
-  // const keyUpEvent = (e: React.KeyboardEvent<any>) => {
-  //   console.log(e);
-  //   if (e.key === "G") {
-  //     setQuestGather({ ...questGatherState, catQuestModal1: true });
-  //   }
-  // };
 
   return (
     <>
@@ -137,7 +126,6 @@ export const Main = () => {
       <BagModal />
       <CatQuestModal1 />
       <FoxQuestModal />
-      <HouseGoMenu />
       <QuestModal />
       <FindKeyModal />
       <BirdQuestModal />

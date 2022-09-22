@@ -19,16 +19,6 @@ import {
 import { TodowithSplide } from "./TodowithSplide";
 import "../../style/a-tag.css";
 
-const Slide = keyframes`
-    0% {
-        transform: translateY(10%);
-    }
-
-    100% {
-        transform: translateY(0);
-    }
-`;
-
 const ModalBackground = styled.div`
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
@@ -49,7 +39,6 @@ const BoxWrap = styled.div`
   align-items: center;
   width: 800px;
   height: 800px;
-  animation: ${Slide} 0.6s ease;
   overflow-y: auto;
   overflow-x: hidden;
   background-image: url("/assets/종이 압축.png");
@@ -152,7 +141,6 @@ export const SgModal = () => {
                 width={550}
                 height={200}
                 margin="20px auto 0 auto"
-                backgroundColor="pink"
               >
                 <video controls style={{ width: "550px" }}>
                   <source src="/assets/브릿지게임/브릿지게임.mp4" />

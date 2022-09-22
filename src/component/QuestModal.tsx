@@ -13,7 +13,7 @@ import "../style/a-tag.css";
 
 const Slide = keyframes`
     0% {
-        transform: translateY(-10%);
+        transform: translateY(-5%);
     }
 
     100% {
@@ -65,6 +65,12 @@ export const QuitImg = styled.img`
   cursor: pointer;
 `;
 
+export const StarImg = styled.img`
+  width: 40px;
+  height: 40px;
+  position: absolute;
+`;
+
 const QuestStateTitleBox = styled(EvColumnBox)`
   width: 120px;
   height: 50px;
@@ -109,6 +115,14 @@ export const QuestModal = () => {
               alt="닫음"
               onClick={() => {
                 setmodalGather({ ...modalGather, questModal: false });
+              }}
+            />
+            <StarImg
+              src="/assets/star.png"
+              alt="내 위치"
+              style={{
+                top: playerPosition[2] * 4.1 + 582,
+                left: playerPosition[0] * 10 + 146,
               }}
             />
             <EvColumnBox<any>
@@ -160,7 +174,6 @@ export const QuestModal = () => {
               >
                 <QuestFinish />
               </QuestStateTextBox>
-              나중에 쓸 포지션 : {playerPosition}
             </EvColumnBox>
           </BoxWrap>
         </ModalBackground>

@@ -5,23 +5,26 @@ import * as THREE from "three";
 import Keycontroller from "../../function/Keycontroller";
 import { useRecoilState } from "recoil";
 import { questGatherState } from "../../recoil/store";
+import { TextureLoader } from "three/src/loaders/TextureLoader";
 
 function HouseOut(props) {
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
   // load GLTF
   const gltf = useLoader(GLTFLoader, "/fishercabin.glb");
-  const exclamationtMesh = gltf.scene.children[0];
+  const houseMesh = gltf.scene.children[0];
   const clock = new THREE.Clock();
   const exclamationtSizeByPlayer = 10;
 
-  exclamationtMesh.position.x = 11.5;
-  exclamationtMesh.position.y = -3.5;
-  exclamationtMesh.position.z = -38.5;
-  const keyController = new Keycontroller();
+  houseMesh.position.x = 0.1;
+  houseMesh.position.y = -7.55;
+  houseMesh.position.z = 4;
+  houseMesh.rotation.z = (Math.PI / 180) * -90;
+
+  const cp = useLoader(TextureLoader, "/assets/textures/cp.png");
 
   return (
-    <>
+    <mesh position={[70, 38, -385]} rotation={[0, (Math.PI / 180) * 90, 0]}>
       <primitive
         object={gltf.scene}
         scale={10}
@@ -29,7 +32,9 @@ function HouseOut(props) {
         onPointerOut={() => setHover(false)}
         onClick={() => window.open("https://sketchfab.com/anthonyjamesgirdler")}
       />
-    </>
+      <boxGeometry attach="geometry" args={[33, 11, 1]} />
+      <meshStandardMaterial attach="material" map={cp} color={"white"} />
+    </mesh>
   );
 }
 export default React.memo(HouseOut);

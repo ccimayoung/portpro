@@ -20,7 +20,7 @@ import { SgExplainText } from "./Project/SgModal";
 
 const Slide = keyframes`
     0% {
-        transform: translateY(10%);
+        transform: translateY(-5%);
     }
 
     100% {

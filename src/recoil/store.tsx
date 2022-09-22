@@ -115,7 +115,6 @@ export type questGather = {
   birdQuestModal?: boolean;
   penguinQuestModal?: boolean;
 };
-
 export const questGatherState = atom<questGather>({
   key: "questGatherState",
   default: {

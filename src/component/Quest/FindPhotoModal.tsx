@@ -4,19 +4,10 @@ import React, { useState } from "react";
 import {
   bagGatherState,
   findObjectGatherState,
+  memoriesGatherState,
   questProgressGatherState,
 } from "../../recoil/store";
 import { EvFontBox, EvKoreanFont } from "../../style/EvStyle";
-
-const Slide = keyframes`
-    0% {
-        transform: translateY(10%);
-    }
-
-    100% {
-        transform: translateY(0);
-    }
-`;
 
 const ModalBackground = styled.div`
   align-items: center;
@@ -38,7 +29,6 @@ const BoxWrap = styled.div`
   align-items: center;
   width: 600px;
   height: 600px;
-  animation: ${Slide} 0.6s ease;
   overflow-y: auto;
   overflow-x: hidden;
   background-color: white;
@@ -91,6 +81,8 @@ export const FindPhotoModal = () => {
   const [questProgressGather, setQuestProgressGather] = useRecoilState(
     questProgressGatherState
   );
+  const [memoriesGather, setMemoriesGather] =
+    useRecoilState(memoriesGatherState);
   return (
     <>
       {findObjectGather.photoModal && (
@@ -104,6 +96,7 @@ export const FindPhotoModal = () => {
               ...questProgressGather,
               q4Photo: "finish",
             });
+            setMemoriesGather({ ...memoriesGather, photoMemory: true });
           }}
         >
           <BoxWrap
@@ -124,6 +117,7 @@ export const FindPhotoModal = () => {
                     ...questProgressGather,
                     q4Photo: "finish",
                   });
+                  setMemoriesGather({ ...memoriesGather, photoMemory: true });
                 }}
               />
             </QuitBox>

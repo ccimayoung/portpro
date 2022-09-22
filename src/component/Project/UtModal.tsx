@@ -20,16 +20,6 @@ import { TodowithSplide } from "./TodowithSplide";
 import "../../style/a-tag.css";
 import { UtSplide } from "./UtSplide";
 
-const Slide = keyframes`
-    0% {
-        transform: translateY(10%);
-    }
-
-    100% {
-        transform: translateY(0);
-    }
-`;
-
 const ModalBackground = styled.div`
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
@@ -50,7 +40,6 @@ const BoxWrap = styled.div`
   align-items: center;
   width: 800px;
   height: 800px;
-  animation: ${Slide} 0.6s ease;
   overflow-y: auto;
   overflow-x: hidden;
   background-image: url("/assets/종이 압축.png");
@@ -250,7 +239,7 @@ export const UtExplainText = () => {
         {`- 기억을 잃은 심아영씨가 퀘스트를 수행하고 탐험하며 기억을 찾아가는 게임 `}
       </BoardFontA>
       <BoardFontA>
-        {`- three.js, cannon.js, Blender, React를 이용한 `}
+        {`- three.js, react-three/fiber, Blender, React를 이용한 `}
         {<span>웹 게임 형식 포트폴리오</span>}
       </BoardFontA>
 
@@ -260,7 +249,8 @@ export const UtExplainText = () => {
         {`를 만들기 위해 three.js를 독학하고 만든 첫 프로젝트 `}
       </BoardFontB>
       <BoardFontB>
-        {`◾ 바닐라 JS로 공부했던 three.js를`} {<span>리액트</span>}
+        {`◾ 바닐라 JS로 공부했던 three.js를`}{" "}
+        {<span>리액트와 react-three/fiber</span>}
         {`로 구현할 수 있게 됨`}
       </BoardFontB>
       <BoardFontB margin="2px 0 0 0">{`◾ 스토리를 구상하며 게임 형식으로 재밌게 만든 포트폴리오`}</BoardFontB>
@@ -268,10 +258,13 @@ export const UtExplainText = () => {
       <BoardFontA margin="10px 0 3px 0">{`- 주요 기능`}</BoardFontA>
       <BoardFontB>{`◾ 정글 맵 : PointerLockControls + keyController 사용. 마인크래프트 느낌의 캐릭터 이동, 시점 이동 방식`}</BoardFontB>
       <BoardFontB>{`◾ 실내 맵 : OrbitControls 사용. 마우스 시점 이동 방식`}</BoardFontB>
-      <BoardFontB margin="2px 0 0 0">{`◾ 물리엔진 : 정글 맵의 통나무와 캐릭터의 물체 충돌에 따른 마찰력, 반발력 설정. 점프를 해서 넘도록 설정 `}</BoardFontB>
-      <BoardFontB margin="2px 0 0 0">{`◾ Particle : 랜덤 상수를 이용하여 랜덤 이미지 패널 구현 및 시점 변경`}</BoardFontB>
+      {/* <BoardFontB margin="2px 0 0 0">{`◾ 물리엔진 : 정글 맵의 통나무와 캐릭터의 물체 충돌에 따른 마찰력, 반발력 설정. 점프를 해서 넘도록 설정 `}</BoardFontB> */}
+      <BoardFontB margin="2px 0 0 0">{`◾ Particle : 구의 attributes.position.array 를 이용한 이미지 Particle 구현`}</BoardFontB>
       <BoardFontB margin="2px 0 0 0">{`◾ 고양이 position : 고양이 퀘스트 완료 시 고양이 mesh가 플레이어 mesh 위치를 따라가게 설정`}</BoardFontB>
-
+      <BoardFontB margin="2px 0 0 0">
+        {`◾ 지도 : `} {<span>캐릭터의 3d x,z 위치를 2d로 변환</span>}
+        {`하여 지도에 표시`}
+      </BoardFontB>
       <BoardFontB margin="2px 0 0 0">{`◾ 포트폴리오 : 퀘스트 완성도에 따라 포트폴리오 모달이 점차 완성됨`}</BoardFontB>
       <BoardFontB margin="2px 0 0 0">{`◾ 가방 : 아이템 습득 시 가방에 넣음`}</BoardFontB>
     </EvFontBox>

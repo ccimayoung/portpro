@@ -28,9 +28,11 @@ import { BagModal } from "../component/BagModal";
 import { QuestionModal } from "../component/QuestionModal";
 import Exclamation from "../component/Mesh/Exclamation";
 import {
+  bagGatherState,
   findObjectGatherState,
   modalGatherState,
   questGatherState,
+  questProgressGatherState,
 } from "../recoil/store";
 
 import { MemoriesModal } from "../component/MemoriesModal";
@@ -40,6 +42,15 @@ import { QuestModal } from "../component/QuestModal";
 import { FindPhotoModal } from "../component/Quest/FindPhotoModal";
 
 function PhotoParticleMesh(props: JSX.IntrinsicElements["mesh"]) {
+  const [modalGather, setmodalGather] = useRecoilState(modalGatherState);
+  const [questGather, setQuestGather] = useRecoilState(questGatherState);
+  const [bagGather, setBagGather] = useRecoilState(bagGatherState);
+  const [findObjectGather, setFindObjectGather] = useRecoilState(
+    findObjectGatherState
+  );
+  const [questProgressGather, setQuestProgressGather] = useRecoilState(
+    questProgressGatherState
+  );
   const { gl, camera, scene } = useThree<any>();
   const renderer = gl;
   renderer.setSize(window.innerWidth, window.innerHeight);
@@ -48,6 +59,7 @@ function PhotoParticleMesh(props: JSX.IntrinsicElements["mesh"]) {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.near = 0.1;
   camera.far = 1000;
+  const keyController = new Keycontroller();
 
   const sphereRef = useRef<any>(null);
 
@@ -114,7 +126,19 @@ function PhotoParticleMesh(props: JSX.IntrinsicElements["mesh"]) {
     }
   }
 
-  useFrame((state, delta, frame) => {});
+  useFrame((state, delta, frame) => {
+    if (keyController.keys["Escape"]) {
+      setmodalGather({
+        ...modalGather,
+
+        questionModal: false,
+        questModal: false,
+        memoriesModal: false,
+        bagModal: false,
+      });
+      setFindObjectGather({ ...findObjectGather, photoModal: false });
+    }
+  });
   return (
     <>
       <mesh visible={false}>

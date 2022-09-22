@@ -19,16 +19,6 @@ import {
 import { TodowithSplide } from "./TodowithSplide";
 import "../../style/a-tag.css";
 
-const Slide = keyframes`
-    0% {
-        transform: translateY(10%);
-    }
-
-    100% {
-        transform: translateY(0);
-    }
-`;
-
 const ModalBackground = styled.div`
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
@@ -49,7 +39,6 @@ const BoxWrap = styled.div`
   align-items: center;
   width: 800px;
   height: 800px;
-  animation: ${Slide} 0.6s ease;
   overflow-y: auto;
   overflow-x: hidden;
   background-image: url("/assets/종이 압축.png");
@@ -278,7 +267,15 @@ export const TodowithExplainText = () => {
       </BoardFontA>
 
       <BoardFontA margin="10px 0 0 0">
-        {`- 주요 기술 : React, Typescript, PWA, SockJs, StompJS, React Query, Recoil, Github Actions, AWS, CloudFront`}
+        {`- 주요 기술 : React, Typescript, PWA, SockJs, StompJS, React Query, Recoil, Github Actions, AWS, CloudFront
+        `}
+        <a
+          className="linktag"
+          href="https://www.notion.so/TODOWITH-e2c94553e7c245ef8d411b9aa4a752b3#1aff2c7659684ba285ca2e2b3b742c12"
+          target="_blank"
+        >
+          👉 기술적 의사결정 (노션)
+        </a>
       </BoardFontA>
 
       <BoardFontA margin="10px 0 3px 0">{`- 의의`}</BoardFontA>

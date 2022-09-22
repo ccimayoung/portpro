@@ -4,16 +4,6 @@ import React, { useState } from "react";
 import { bagGatherState, findObjectGatherState } from "../../recoil/store";
 import { EvFontBox, EvKoreanFont } from "../../style/EvStyle";
 
-const Slide = keyframes`
-    0% {
-        transform: translateY(10%);
-    }
-
-    100% {
-        transform: translateY(0);
-    }
-`;
-
 const ModalBackground = styled.div`
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
@@ -35,7 +25,6 @@ const BoxWrap = styled.div`
   justify-items: center;
   width: 600px;
   height: 600px;
-  animation: ${Slide} 0.6s ease;
   overflow-y: auto;
   overflow-x: hidden;
   background-color: white;

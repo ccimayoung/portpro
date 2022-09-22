@@ -11,19 +11,9 @@ import {
 } from "../style/EvStyle";
 import { modalGatherState } from "../recoil/store";
 
-const Slide = keyframes`
-    0% {
-        transform: translateY(-5%);
-    }
-
-    100% {
-        transform: translateY(0);
-    }
-`;
-
 const ModalBackground = styled.div`
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   height: 100%;
   justify-content: center;
@@ -41,7 +31,6 @@ const BoxWrap = styled.div`
   align-items: center;
   width: 1334px;
   height: 800px;
-  animation: ${Slide} 0.6s ease;
   overflow-y: auto;
   overflow-x: hidden;
   border-radius: 50px;
@@ -147,7 +136,7 @@ export const FinishModal = () => {
                 width={270}
                 style={{ height: "70px", fontSize: "25px" }}
                 onClick={() =>
-                  window.open("https://github.com/ccimayoung", "_blank")
+                  window.open("https://github.com/ccimayoung/portpro", "_blank")
                 }
               >
                 👉 GitHub 보러가기

@@ -86,12 +86,20 @@ export const BottomMenu = () => {
             src="/assets/정글맵돌아가기.png"
             alt="정글맵돌아가기"
             onClick={() => {
+              setQuestProgressGather({
+                ...questProgressGather,
+                q5Memory: "ing",
+              });
               nav("/");
+              const questTimeOut = setTimeout(() => {
+                setmodalGather({ ...modalGather, questModal: true });
+                clearTimeout(questTimeOut);
+              }, 200);
             }}
           />
         </HouseInMapExplainImgBox>
       ) : find === "houseinmap" ? (
-        <HouseInMapExplainImgBox>
+        <HouseInMapExplainImgBox style={{ width: "200px" }}>
           <ImgContent
             src="/assets/집안맵 설명.png"
             alt="집안맵 설명"

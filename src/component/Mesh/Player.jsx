@@ -46,7 +46,7 @@ const Player = (props) => {
 
   const controls = new PointerLockControls(camera, renderer.domElement);
 
-  controls.pointerSpeed = 0.2;
+  controls.pointerSpeed = 0.15;
   const keyController = new Keycontroller();
 
   useEffect(() => {
@@ -297,19 +297,21 @@ const Player = (props) => {
       if (playerMesh.position.z > -98 && playerMesh.position.z < -67) {
         setQuestGather({ ...questGatherState, penguinQuestModal: true });
       }
-
-      // }
     }
 
-    // state.camera.position.z = playerMesh.position.z * 25 + 120;
+    if (keyController.keys["Escape"]) {
+      setmodalGather({
+        ...modalGather,
+
+        questionModal: false,
+        questModal: false,
+        memoriesModal: false,
+        bagModal: false,
+      });
+      setFindObjectGather({ ...findObjectGather, keyModal: false });
+    }
   });
 
-  // gltf 로더는 시간이 걸리는데 draw함수는 바로 실행되서 오류 발생. 그래서 if문 사용
-  const gui = new dat.GUI();
-  // gui.add(mesh.position, "y", -5, 5, 0.01).name("y 위치"); // 한줄로 쓸때
-  // gui.add(camera.position, "x", -10, 10, 1).name("카메라 X");
-  // gui.add(camera.position, "Y", -10, 10, 1).name("카메라 Y");
-  // gui.add(camera.position, "Z", -10, 10, 1).name("카메라 Z");
   return (
     <>
       <primitive

@@ -28,9 +28,11 @@ import { BagModal } from "../component/BagModal";
 import { QuestionModal } from "../component/QuestionModal";
 import Exclamation from "../component/Mesh/Exclamation";
 import {
+  bagGatherState,
   findObjectGatherState,
   modalGatherState,
   questGatherState,
+  questProgressGatherState,
 } from "../recoil/store";
 import { CatQuestModal1 } from "../component/Quest/CatQuestModal1";
 import TunaCan1 from "../component/Mesh/TunaCan1";
@@ -56,6 +58,15 @@ import { FindProjectModal } from "../component/Quest/FindProjectModal";
 
 function HouseInMesh(props: JSX.IntrinsicElements["mesh"]) {
   const gltf = useLoader(GLTFLoader, "/rick_and_morty_garage_fan_art.glb");
+  const [modalGather, setmodalGather] = useRecoilState(modalGatherState);
+  const [questGather, setQuestGather] = useRecoilState(questGatherState);
+  const [bagGather, setBagGather] = useRecoilState(bagGatherState);
+  const [findObjectGather, setFindObjectGather] = useRecoilState(
+    findObjectGatherState
+  );
+  const [questProgressGather, setQuestProgressGather] = useRecoilState(
+    questProgressGatherState
+  );
   const { gl, camera }: { gl: any; camera: any } = useThree();
   const renderer = gl;
   renderer.setSize(window.innerWidth, window.innerHeight);
@@ -69,8 +80,28 @@ function HouseInMesh(props: JSX.IntrinsicElements["mesh"]) {
   const houseMesh = gltf.scene.children[0];
   houseMesh.rotation.z = Math.PI / 4;
   houseMesh.position.set(-1, -1.5, -2.5);
+  const keyController = new Keycontroller();
+
   useFrame((state, delta, frame) => {
-    // mesh.rotation.x = state.clock.getElapsedTime();
+    if (keyController.keys["Escape"]) {
+      setmodalGather({
+        ...modalGather,
+        houseInExplainModal: false,
+        questionModal: true,
+        questModal: false,
+        memoriesModal: false,
+        bagModal: false,
+        todowithModal: false,
+        utModal: false,
+        sgModal: false,
+      });
+      setFindObjectGather({
+        ...findObjectGather,
+        tonaCan1Modal: false,
+        tonaCan2Modal: false,
+        projectModal: false,
+      });
+    }
   });
   return (
     <>
@@ -92,14 +123,6 @@ export const HouseInMap = () => {
   const [findObjectGather, setFindObjectGather] = useRecoilState(
     findObjectGatherState
   );
-
-  // const [questGather, setQuestGather] = useRecoilState(questGatherState);
-  // const keyUpEvent = (e: React.KeyboardEvent<any>) => {
-  //   console.log(e);
-  //   if (e.key === "G") {
-  //     setQuestGather({ ...questGatherState, catQuestModal1: true });
-  //   }
-  // };
 
   useEffect(() => {
     setmodalGather({ ...modalGather, houseInExplainModal: true });
