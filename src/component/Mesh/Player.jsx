@@ -273,7 +273,7 @@ const Player = (props) => {
       if (
         playerMesh.position.z > -30 &&
         playerMesh.position.z < -22.5 &&
-        questProgressGather.q2Key !== "finish"
+        !findObjectGather.keyFind
       ) {
         setBagGather({ ...bagGather, key1: true });
         setFindObjectGather({

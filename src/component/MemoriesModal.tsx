@@ -389,7 +389,7 @@ export const SgMemory = () => {
         margin="5px auto 0px auto"
       >
         <EvKoreanFont size={15} color="#4F4F4F">
-          2022.07 클론 코딩
+          2022.08 클론 코딩
         </EvKoreanFont>
       </EvFontBox>
       <EvColumnBox className="center wrap" margin="15px auto 0 auto">
