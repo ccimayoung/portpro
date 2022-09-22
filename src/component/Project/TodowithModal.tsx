@@ -1,11 +1,10 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { useRecoilState } from "recoil";
-import React, { useState, useRef } from "react";
+import React from "react";
 import {
   findObjectGatherState,
   memoriesGatherState,
   modalGatherState,
-  questProgressGatherState,
 } from "../../recoil/store";
 import {
   EvColumnBox,
@@ -64,33 +63,13 @@ export const QuitImg = styled.img`
 
 export const TodowithModal = () => {
   const [modalGather, setmodalGather] = useRecoilState(modalGatherState);
-  const [findObjectGather, setFindObjectGather] = useRecoilState(
-    findObjectGatherState
-  );
-  const [questProgressGather, setQuestProgressGather] = useRecoilState(
-    questProgressGatherState
-  );
-  const [memoriesGather, setMemoriesGather] =
-    useRecoilState(memoriesGatherState);
-
   return (
     <>
       {modalGather.todowithModal && (
         <ModalBackground
           onClick={() => {
-            setMemoriesGather({ ...memoriesGather, todowithMemory: true });
-
             const projectTimer = setTimeout(() => {
               setmodalGather({ ...modalGather, todowithModal: false });
-              const memoryTimer = setTimeout(() => {
-                setFindObjectGather({
-                  ...findObjectGather,
-                  projectTodowith: true,
-                  projectModal: true,
-                });
-                clearTimeout(memoryTimer);
-              }, 300);
-
               clearTimeout(projectTimer);
             }, 200);
           }}
@@ -104,19 +83,8 @@ export const TodowithModal = () => {
               src="/assets/reject.png"
               alt="닫음"
               onClick={() => {
-                setMemoriesGather({ ...memoriesGather, todowithMemory: true });
-
                 const projectTimer = setTimeout(() => {
                   setmodalGather({ ...modalGather, todowithModal: false });
-                  const memoryTimer = setTimeout(() => {
-                    setFindObjectGather({
-                      ...findObjectGather,
-                      projectTodowith: true,
-                      projectModal: true,
-                    });
-                    clearTimeout(memoryTimer);
-                  }, 300);
-
                   clearTimeout(projectTimer);
                 }, 200);
               }}

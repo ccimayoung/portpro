@@ -3,7 +3,6 @@ import { useLoader, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import * as THREE from "three";
-import dat from "dat.gui";
 import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls";
 import Keycontroller from "../../function/Keycontroller";
 import { useRecoilState } from "recoil";
@@ -18,8 +17,6 @@ import {
 
 const Player = (props) => {
   // const { canvas } = props;
-  const [hovered, setHover] = useState(false);
-  const [active, setActive] = useState(false);
 
   const [playerPosition, setPlayerPosition] =
     useRecoilState(playerPositionState);
@@ -33,7 +30,6 @@ const Player = (props) => {
     questProgressGatherState
   );
 
-  const [pressG, setPressG] = useState(false);
   const { gl, camera } = useThree();
   const renderer = gl;
   renderer.setSize(window.innerWidth, window.innerHeight);
@@ -68,9 +64,6 @@ const Player = (props) => {
   const catSizeByPlayer = 830;
   const catActions = [];
   const catMixer = new THREE.AnimationMixer(catMesh);
-
-  const clock = new THREE.Clock();
-  const delta = clock.getDelta();
 
   if (playerMixer) {
     playerActions[0] = playerMixer.clipAction(playerGltf.animations[0]);
@@ -115,12 +108,6 @@ const Player = (props) => {
       playerMesh.position.y + 35,
       playerMesh.position.z + 80
     );
-    // camera.lookAt(
-    //   playerMesh.position.x,
-    //   playerMesh.position.y,
-    //   playerMesh.position.z
-    // );
-    // camera.zoom = 0.2;
     camera.updateProjectionMatrix();
   });
 
@@ -267,27 +254,34 @@ const Player = (props) => {
       catJump = false;
     }
 
-    // if (keyController.keys["KeyG"]) {
     if (keyController.keys["KeyG"]) {
       console.log(playerMesh.position);
-      if (playerMesh.position.z > -7.3 && playerMesh.position.z < -3.3) {
+      if (
+        playerMesh.position.z > -7.3 &&
+        playerMesh.position.z < -3.3 &&
+        questProgressGather.q1TunaCan !== "finish"
+      ) {
         setQuestGather({ ...questGatherState, catQuestModal1: true });
-        console.log("고양이g");
+        // console.log("고양이g");
       }
 
       if (playerMesh.position.z > -15 && playerMesh.position.z < -11) {
         setQuestGather({ ...questGatherState, foxQuestModal: true });
-        console.log("여우g");
+        // console.log("여우g");
       }
 
-      if (playerMesh.position.z > -30 && playerMesh.position.z < -22.5) {
+      if (
+        playerMesh.position.z > -30 &&
+        playerMesh.position.z < -22.5 &&
+        questProgressGather.q2Key !== "finish"
+      ) {
         setBagGather({ ...bagGather, key1: true });
         setFindObjectGather({
           ...findObjectGather,
           keyModal: true,
           keyFind: true,
         });
-        console.log("키g");
+        // console.log("키g");
       }
 
       if (playerMesh.position.z > -60 && playerMesh.position.z < -46) {
@@ -314,22 +308,8 @@ const Player = (props) => {
 
   return (
     <>
-      <primitive
-        object={playerGltf.scene}
-        scale={25}
-        onPointerOver={() => setHover(true)}
-        onPointerOut={() => setHover(false)}
-        onClick={() => window.open("https://sketchfab.com/anthonyjamesgirdler")}
-        // camera={{ fov: 75 }}
-      />
-      <primitive
-        object={catGltf.scene}
-        scale={0.03}
-        onPointerOver={() => setHover(true)}
-        onPointerOut={() => setHover(false)}
-        onClick={() => window.open("https://sketchfab.com/anthonyjamesgirdler")}
-        // camera={{ fov: 75 }}
-      />
+      <primitive object={playerGltf.scene} scale={25} />
+      <primitive object={catGltf.scene} scale={0.03} />
     </>
   );
 };

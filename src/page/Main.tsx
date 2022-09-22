@@ -1,25 +1,16 @@
-import React, { MutableRefObject, Ref, useRef } from "react";
-import styled, { keyframes } from "styled-components";
+import React, { useRef } from "react";
 import {
   useRecoilBridgeAcrossReactRoots_UNSTABLE,
   useRecoilState,
-  useRecoilValue,
 } from "recoil";
-import { Suspense, useEffect, useState } from "react";
-import * as THREE from "three";
-import { createRoot } from "react-dom/client";
-import { useGLTF } from "@react-three/drei";
-import { Canvas, useFrame, ThreeElements, useLoader } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import { Suspense } from "react";
+import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Cat } from "../component/Mesh/Cat";
-import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls";
-import Keycontroller from "../function/Keycontroller";
 import Player from "../component/Mesh/Player";
 import { BottomMenu } from "../component/BottomMenu";
 import { BagModal } from "../component/BagModal";
 import { QuestionModal } from "../component/QuestionModal";
-import Exclamation from "../component/Mesh/Exclamation";
 import {
   findObjectGatherState,
   questProgressGatherState,
@@ -34,7 +25,6 @@ import FoxQuestionMark from "../component/Mesh/FoxQuestionMark";
 import { FoxQuestModal } from "../component/Quest/FoxQuestModal";
 import KittyKey from "../component/Mesh/KittyKey";
 import KittyKeyQuestionMark from "../component/Mesh/KittyKeyQuestionMark";
-import Log from "../component/Mesh/Log";
 import { FindKeyModal } from "../component/Quest/FindKeyModal";
 import Bird from "../component/Mesh/Bird";
 import BirdQuestionMark from "../component/Mesh/BirdQuestionMark";
@@ -65,7 +55,6 @@ function RoadMesh(props: JSX.IntrinsicElements["mesh"]) {
 }
 
 export const Main = () => {
-  const clock = new THREE.Clock();
   const ref = useRef<any>();
   const canvas = ref.current;
   const RecoilBridge = useRecoilBridgeAcrossReactRoots_UNSTABLE();
@@ -92,7 +81,6 @@ export const Main = () => {
         <RecoilBridge>
           <Suspense fallback={null}>
             <RoadMesh position={[0, 1, 0]} />
-            <Log />
           </Suspense>
           <Suspense fallback={null}>
             <Player canvasProp={canvas} />

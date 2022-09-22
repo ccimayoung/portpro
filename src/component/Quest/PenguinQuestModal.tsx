@@ -1,16 +1,15 @@
 import styled, { keyframes } from "styled-components";
 import { useRecoilState } from "recoil";
-import React, { useState } from "react";
+import React from "react";
 import {
-  findObjectGatherState,
   memoriesGatherState,
   modalGatherState,
   questGatherState,
   questProgressGatherState,
 } from "../../recoil/store";
-import Keycontroller from "../../function/Keycontroller";
+
 import { EvBtnAble, EvKoreanFont } from "../../style/EvStyle";
-import { QuestModal } from "../QuestModal";
+
 import { useNavigate } from "react-router";
 
 const Slide = keyframes`
@@ -149,9 +148,6 @@ export const PenguinQuestModal = () => {
 };
 
 export const PenguinWord = () => {
-  const [findObjectGather, setFindObjectGather] = useRecoilState(
-    findObjectGatherState
-  );
   const [questProgressGather, setQuestProgressGather] = useRecoilState(
     questProgressGatherState
   );

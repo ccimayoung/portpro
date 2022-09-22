@@ -1,25 +1,26 @@
-import React, { useRef, useState, useMemo } from "react";
-import { useLoader, useFrame, useThree, extend } from "@react-three/fiber";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import * as THREE from "three";
-import Keycontroller from "../../function/Keycontroller";
+import React, { useState } from "react";
+import { useLoader } from "@react-three/fiber";
 import { useRecoilState } from "recoil";
-import { modalGatherState, questGatherState } from "../../recoil/store";
+import {
+  findObjectGatherState,
+  memoriesGatherState,
+  modalGatherState,
+} from "../../recoil/store";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 
-import {
-  Selection,
-  Select,
-  EffectComposer,
-  Outline,
-} from "@react-three/postprocessing";
+import { Select } from "@react-three/postprocessing";
 
 function BoardSG(props) {
-  const loader = new THREE.TextureLoader();
   const [hover, setHover] = useState(false);
   const [modalGather, setmodalGather] = useRecoilState(modalGatherState);
+  const [findObjectGather, setFindObjectGather] = useRecoilState(
+    findObjectGatherState
+  );
+  const [memoriesGather, setMemoriesGather] =
+    useRecoilState(memoriesGatherState);
 
   const sg = useLoader(TextureLoader, "/assets/textures/브릿지게임1.png");
+  console.log(findObjectGather);
   return (
     <>
       <Select enabled={hover}>
@@ -27,7 +28,20 @@ function BoardSG(props) {
           position={[11.2, -1.6, -6.35]}
           rotation={[0, Math.PI / 1.3, 0]}
           onClick={() => {
-            setmodalGather({ ...modalGather, sgModal: true });
+            setMemoriesGather({ ...memoriesGather, sgMemory: true });
+            const madalTimer = setTimeout(() => {
+              setmodalGather({ ...modalGather, sgModal: true });
+              const memoryTimer = setTimeout(() => {
+                setFindObjectGather({
+                  ...findObjectGather,
+                  projectSg: true,
+                  projectModal: true,
+                });
+                clearTimeout(memoryTimer);
+              }, 200);
+
+              clearTimeout(madalTimer);
+            }, 200);
           }}
           onPointerOver={() => setHover(true)}
           onPointerOut={() => setHover(false)}

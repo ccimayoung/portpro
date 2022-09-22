@@ -1,39 +1,18 @@
-import React, { MutableRefObject, Ref, useRef } from "react";
-import styled, { keyframes } from "styled-components";
+import React, { useRef } from "react";
 import {
   useRecoilBridgeAcrossReactRoots_UNSTABLE,
   useRecoilState,
-  useRecoilValue,
 } from "recoil";
 
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect } from "react";
 import * as THREE from "three";
-import { createRoot } from "react-dom/client";
-import { useGLTF } from "@react-three/drei";
-import {
-  Canvas,
-  useFrame,
-  ThreeElements,
-  useLoader,
-  useThree,
-} from "@react-three/fiber";
+import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { Cat } from "../component/Mesh/Cat";
-import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls";
 import Keycontroller from "../function/Keycontroller";
-import Player from "../component/Mesh/Player";
 import { BottomMenu } from "../component/BottomMenu";
 import { BagModal } from "../component/BagModal";
 import { QuestionModal } from "../component/QuestionModal";
-import Exclamation from "../component/Mesh/Exclamation";
-import {
-  bagGatherState,
-  findObjectGatherState,
-  modalGatherState,
-  questGatherState,
-  questProgressGatherState,
-} from "../recoil/store";
+import { findObjectGatherState, modalGatherState } from "../recoil/store";
 
 import { MemoriesModal } from "../component/MemoriesModal";
 
@@ -43,14 +22,10 @@ import { FindPhotoModal } from "../component/Quest/FindPhotoModal";
 
 function PhotoParticleMesh(props: JSX.IntrinsicElements["mesh"]) {
   const [modalGather, setmodalGather] = useRecoilState(modalGatherState);
-  const [questGather, setQuestGather] = useRecoilState(questGatherState);
-  const [bagGather, setBagGather] = useRecoilState(bagGatherState);
   const [findObjectGather, setFindObjectGather] = useRecoilState(
     findObjectGatherState
   );
-  const [questProgressGather, setQuestProgressGather] = useRecoilState(
-    questProgressGatherState
-  );
+
   const { gl, camera, scene } = useThree<any>();
   const renderer = gl;
   renderer.setSize(window.innerWidth, window.innerHeight);
@@ -151,8 +126,6 @@ function PhotoParticleMesh(props: JSX.IntrinsicElements["mesh"]) {
 export const PhotoParticle = () => {
   const clock = new THREE.Clock();
   const ref = useRef<any>();
-  const [modalGather, setmodalGather] = useRecoilState(modalGatherState);
-  const canvas = ref.current;
   const RecoilBridge = useRecoilBridgeAcrossReactRoots_UNSTABLE();
   const [findObjectGather, setFindObjectGather] = useRecoilState(
     findObjectGatherState

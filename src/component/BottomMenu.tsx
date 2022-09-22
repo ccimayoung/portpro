@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useRecoilState } from "recoil";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import {
   findObjectGatherState,
   modalGatherState,
@@ -60,11 +60,11 @@ export const BottomMenu = () => {
   const find = lastUrl[lastUrl.length - 1];
   console.log(find);
   const [modalGather, setmodalGather] = useRecoilState(modalGatherState);
-  const [findObjectGather, setFindObjectGather] = useRecoilState(
-    findObjectGatherState
-  );
   const [questProgressGather, setQuestProgressGather] = useRecoilState(
     questProgressGatherState
+  );
+  const [findObjectGather, setFindObjectGather] = useRecoilState(
+    findObjectGatherState
   );
   const nav = useNavigate();
   useEffect(() => {}, [url]);
@@ -131,7 +131,19 @@ export const BottomMenu = () => {
         <ImgContent
           src="/assets/location.png"
           alt="퀘스트"
-          onClick={() => setmodalGather({ ...modalGather, questModal: true })}
+          onClick={() => {
+            setmodalGather({ ...modalGather, questModal: true });
+            if (
+              findObjectGather.projectTodowith &&
+              findObjectGather.projectSg &&
+              findObjectGather.projectUt
+            ) {
+              setQuestProgressGather({
+                ...questProgressGather,
+                q3Port: "finish",
+              });
+            }
+          }}
         />
         <ImgContent
           src="/assets/backpack.png"

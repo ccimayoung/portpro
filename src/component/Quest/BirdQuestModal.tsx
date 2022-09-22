@@ -1,15 +1,8 @@
 import styled, { keyframes } from "styled-components";
 import { useRecoilState } from "recoil";
-import React, { useState } from "react";
-import {
-  findObjectGatherState,
-  modalGatherState,
-  questGatherState,
-  questProgressGatherState,
-} from "../../recoil/store";
-import Keycontroller from "../../function/Keycontroller";
+import React from "react";
+import { questGatherState, questProgressGatherState } from "../../recoil/store";
 import { EvBtnAble, EvKoreanFont } from "../../style/EvStyle";
-import { QuestModal } from "../QuestModal";
 import { useNavigate } from "react-router";
 
 const Slide = keyframes`
@@ -47,7 +40,6 @@ const BoxWrap = styled.div`
   overflow-y: auto;
   overflow-x: hidden;
   overflow-y: scroll;
-  /* background-color: red; */
   ::-webkit-scrollbar {
     display: none;
   }
@@ -148,14 +140,11 @@ export const BirdQuestModal = () => {
 };
 
 export const BirdWord = () => {
-  const [findObjectGather, setFindObjectGather] = useRecoilState(
-    findObjectGatherState
-  );
   const [questProgressGather, setQuestProgressGather] = useRecoilState(
     questProgressGatherState
   );
   const [questGather, setQuestGather] = useRecoilState(questGatherState);
-  const [modalGather, setmodalGather] = useRecoilState(modalGatherState);
+
   const nav = useNavigate();
   return (
     <>

@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import { useRecoilState } from "recoil";
-import React, { useState } from "react";
+import React from "react";
 import { memoriesGatherState, modalGatherState } from "../recoil/store";
 import {
   EvColumnBox,
@@ -9,14 +9,16 @@ import {
   EvProjectBtnAble,
   EvRowBox,
   MemoryTitleBox,
-  TitleBox,
   TitleFont,
 } from "../style/EvStyle";
 import { TodowithSplide } from "./Project/TodowithSplide";
-import { BoardFontA, TodowithExplainText } from "./Project/TodowithModal";
+import { TodowithExplainText } from "./Project/TodowithModal";
 import { UtExplainText } from "./Project/UtModal";
 import { UtSplide } from "./Project/UtSplide";
 import { SgExplainText } from "./Project/SgModal";
+import mySkills1 from "../style/memoriesSkills/skills1.png";
+import mySkills2 from "../style/memoriesSkills/skills2.png";
+import mySkills3 from "../style/memoriesSkills/skills3.png";
 
 const Slide = keyframes`
     0% {
@@ -199,7 +201,7 @@ export const ProfileWrap = () => {
           </EvKoreanFont>
           <img
             style={{ width: "290px", margin: "5px 0 40px 0" }}
-            src="/assets/프로필/skills1.png"
+            src={mySkills1}
             alt="프론트엔드스킬"
           ></img>
           <EvKoreanFont size={20} isBold={true}>
@@ -207,7 +209,7 @@ export const ProfileWrap = () => {
           </EvKoreanFont>
           <img
             style={{ width: "290px", margin: "5px 0 0 0" }}
-            src="/assets/프로필/skills3.png"
+            src={mySkills3}
             alt="디자인스킬"
           ></img>
         </EvFontBox>
@@ -223,7 +225,7 @@ export const ProfileWrap = () => {
           </EvKoreanFont>
           <img
             style={{ width: "325px", margin: "5px 0 40px 0" }}
-            src="/assets/프로필/skills2.png"
+            src={mySkills2}
             alt="인프라스킬"
           ></img>
         </EvFontBox>

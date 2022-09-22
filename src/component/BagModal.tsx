@@ -1,8 +1,7 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { useRecoilState } from "recoil";
-import React, { useState } from "react";
+import React from "react";
 import { bagGatherState, modalGatherState } from "../recoil/store";
-import TunaCan1 from "./Mesh/TunaCan1";
 
 const ModalBackground = styled.div`
   align-items: center;

@@ -1,13 +1,11 @@
-import React, { useEffect } from "react";
-import logo from "./logo.svg";
+import React from "react";
+
 import "./App.css";
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
-import { RecoilRoot, useRecoilState } from "recoil";
-import { routeList } from "./route/routeList";
-import { RouterSwitch } from "./route/RouterSwitch";
-import { Main } from "./page";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
 import { HouseInMap } from "./page/HouseInMap";
 import { PhotoParticle } from "./page/PhotoParticle";
+import { Main } from "./page/Main";
 
 function App() {
   return (

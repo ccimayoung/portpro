@@ -1,11 +1,10 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { useRecoilState } from "recoil";
-import React, { useState, useRef } from "react";
+import React from "react";
 import {
   findObjectGatherState,
   memoriesGatherState,
   modalGatherState,
-  questProgressGatherState,
 } from "../../recoil/store";
 import {
   EvColumnBox,
@@ -16,7 +15,6 @@ import {
   TitleBox,
   TitleFont,
 } from "../../style/EvStyle";
-import { TodowithSplide } from "./TodowithSplide";
 import "../../style/a-tag.css";
 import { UtSplide } from "./UtSplide";
 
@@ -68,9 +66,6 @@ export const UtModal = () => {
   const [findObjectGather, setFindObjectGather] = useRecoilState(
     findObjectGatherState
   );
-  const [questProgressGather, setQuestProgressGather] = useRecoilState(
-    questProgressGatherState
-  );
   const [memoriesGather, setMemoriesGather] =
     useRecoilState(memoriesGatherState);
 
@@ -79,19 +74,8 @@ export const UtModal = () => {
       {modalGather.utModal && (
         <ModalBackground
           onClick={() => {
-            setMemoriesGather({ ...memoriesGather, utMemory: true });
-
             const projectTimer = setTimeout(() => {
               setmodalGather({ ...modalGather, utModal: false });
-              const memoryTimer = setTimeout(() => {
-                setFindObjectGather({
-                  ...findObjectGather,
-                  projectUt: true,
-                  projectModal: true,
-                });
-                clearTimeout(memoryTimer);
-              }, 300);
-
               clearTimeout(projectTimer);
             }, 200);
           }}
@@ -105,19 +89,8 @@ export const UtModal = () => {
               src="/assets/reject.png"
               alt="닫음"
               onClick={() => {
-                setMemoriesGather({ ...memoriesGather, utMemory: true });
-
                 const projectTimer = setTimeout(() => {
                   setmodalGather({ ...modalGather, utModal: false });
-                  const memoryTimer = setTimeout(() => {
-                    setFindObjectGather({
-                      ...findObjectGather,
-                      projectUt: true,
-                      projectModal: true,
-                    });
-                    clearTimeout(memoryTimer);
-                  }, 300);
-
                   clearTimeout(projectTimer);
                 }, 200);
               }}

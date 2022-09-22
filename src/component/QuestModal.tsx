@@ -1,14 +1,13 @@
 import styled, { keyframes } from "styled-components";
 import { useRecoilState } from "recoil";
-import React, { useState, useRef } from "react";
+import React from "react";
 import {
   modalGatherState,
   playerPositionState,
   questProgressGatherState,
 } from "../recoil/store";
-import Keycontroller from "../function/Keycontroller";
-import { EvColumnBox, EvFontBox, EvKoreanFont } from "../style/EvStyle";
-import { ProfileTextFont } from "./MemoriesModal";
+import { EvColumnBox, EvKoreanFont } from "../style/EvStyle";
+
 import "../style/a-tag.css";
 
 const Slide = keyframes`

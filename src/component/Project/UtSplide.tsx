@@ -3,7 +3,7 @@ import "@splidejs/react-splide/css";
 import "@splidejs/react-splide/css/skyblue";
 
 import styled from "styled-components";
-import { EvColumnBox, EvFontBox, EvKoreanFont } from "../../style/EvStyle";
+import { EvColumnBox } from "../../style/EvStyle";
 import "../../style/on-boarding.css";
 
 const OnBoardingImgBox = styled(EvColumnBox)`

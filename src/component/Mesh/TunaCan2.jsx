@@ -1,14 +1,8 @@
-import React, { useRef, useState, useMemo } from "react";
-import { useLoader, useFrame, useThree } from "@react-three/fiber";
+import React, { useState } from "react";
+import { useLoader, useFrame } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import * as THREE from "three";
-import Keycontroller from "../../function/Keycontroller";
 import { useRecoilState } from "recoil";
-import {
-  bagGatherState,
-  findObjectGatherState,
-  questGatherState,
-} from "../../recoil/store";
+import { bagGatherState, findObjectGatherState } from "../../recoil/store";
 import { Select } from "@react-three/drei";
 
 function TunaCan2(props) {
@@ -20,8 +14,6 @@ function TunaCan2(props) {
   const [findObjectGather, setFindObjectGather] = useRecoilState(
     findObjectGatherState
   );
-  const clock = new THREE.Clock();
-
   tunaCanMesh2.position.set(21, -40, -150);
 
   useFrame((state, delta, frame) => {

@@ -1,46 +1,25 @@
-import React, { MutableRefObject, Ref, useRef } from "react";
-import styled, { keyframes } from "styled-components";
+import React, { useRef } from "react";
 import {
   useRecoilBridgeAcrossReactRoots_UNSTABLE,
   useRecoilState,
-  useRecoilValue,
 } from "recoil";
 
-import { Suspense, useEffect, useState } from "react";
-import * as THREE from "three";
-import { createRoot } from "react-dom/client";
-import { useGLTF } from "@react-three/drei";
-import {
-  Canvas,
-  useFrame,
-  ThreeElements,
-  useLoader,
-  useThree,
-} from "@react-three/fiber";
+import { Suspense, useEffect } from "react";
+import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { Cat } from "../component/Mesh/Cat";
-import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls";
 import Keycontroller from "../function/Keycontroller";
-import Player from "../component/Mesh/Player";
+
 import { BottomMenu } from "../component/BottomMenu";
 import { BagModal } from "../component/BagModal";
 import { QuestionModal } from "../component/QuestionModal";
-import Exclamation from "../component/Mesh/Exclamation";
-import {
-  bagGatherState,
-  findObjectGatherState,
-  modalGatherState,
-  questGatherState,
-  questProgressGatherState,
-} from "../recoil/store";
-import { CatQuestModal1 } from "../component/Quest/CatQuestModal1";
+
+import { findObjectGatherState, modalGatherState } from "../recoil/store";
 import TunaCan1 from "../component/Mesh/TunaCan1";
 import TunaCan2 from "../component/Mesh/TunaCan2";
 import BoardTodowith from "../component/Mesh/BoardTodowith";
 import {
   Selection,
-  Select,
   EffectComposer,
   Outline,
 } from "@react-three/postprocessing";
@@ -59,14 +38,10 @@ import { FindProjectModal } from "../component/Quest/FindProjectModal";
 function HouseInMesh(props: JSX.IntrinsicElements["mesh"]) {
   const gltf = useLoader(GLTFLoader, "/rick_and_morty_garage_fan_art.glb");
   const [modalGather, setmodalGather] = useRecoilState(modalGatherState);
-  const [questGather, setQuestGather] = useRecoilState(questGatherState);
-  const [bagGather, setBagGather] = useRecoilState(bagGatherState);
   const [findObjectGather, setFindObjectGather] = useRecoilState(
     findObjectGatherState
   );
-  const [questProgressGather, setQuestProgressGather] = useRecoilState(
-    questProgressGatherState
-  );
+
   const { gl, camera }: { gl: any; camera: any } = useThree();
   const renderer = gl;
   renderer.setSize(window.innerWidth, window.innerHeight);
@@ -87,7 +62,7 @@ function HouseInMesh(props: JSX.IntrinsicElements["mesh"]) {
       setmodalGather({
         ...modalGather,
         houseInExplainModal: false,
-        questionModal: true,
+        questionModal: false,
         questModal: false,
         memoriesModal: false,
         bagModal: false,
@@ -115,10 +90,8 @@ function HouseInMesh(props: JSX.IntrinsicElements["mesh"]) {
 }
 
 export const HouseInMap = () => {
-  const clock = new THREE.Clock();
   const ref = useRef<any>();
   const [modalGather, setmodalGather] = useRecoilState(modalGatherState);
-  const canvas = ref.current;
   const RecoilBridge = useRecoilBridgeAcrossReactRoots_UNSTABLE();
   const [findObjectGather, setFindObjectGather] = useRecoilState(
     findObjectGatherState
@@ -137,10 +110,9 @@ export const HouseInMap = () => {
           width: "100vw",
           height: "100vh",
         }}
-        // onKeyUp={keyUpEvent}
       >
         <ambientLight color={"white"} intensity={0.5} />
-        {/* <directionalLight /> */}
+
         <RecoilBridge>
           <Suspense fallback={null}>
             <BoardTodowith />
@@ -152,7 +124,7 @@ export const HouseInMap = () => {
           </Suspense>
           <OrbitControls />
         </RecoilBridge>
-        {/* <pointLight position={[30, 10, 10]} /> */}
+
         <Selection>
           <EffectComposer multisampling={8} autoClear={false}>
             <Outline blur visibleEdgeColor={1} edgeStrength={100} width={500} />

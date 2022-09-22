@@ -1,7 +1,7 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { useRecoilState } from "recoil";
-import React, { useState } from "react";
-import { bagGatherState, findObjectGatherState } from "../../recoil/store";
+import React from "react";
+import { findObjectGatherState } from "../../recoil/store";
 import { EvFontBox, EvKoreanFont } from "../../style/EvStyle";
 
 const ModalBackground = styled.div`
