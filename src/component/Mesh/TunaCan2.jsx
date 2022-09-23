@@ -7,7 +7,7 @@ import { Select } from "@react-three/drei";
 
 function TunaCan2(props) {
   // load GLTF
-  const gltf = useLoader(GLTFLoader, "/tuna_can2.glb");
+  const gltf = useLoader(GLTFLoader, "/assets/glb/tuna_can2.glb");
   const tunaCanMesh2 = gltf.scene.children[0];
   const [hover, setHover] = useState(false);
   const [bagGather, setBagGather] = useRecoilState(bagGatherState);

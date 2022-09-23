@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useLoader } from "@react-three/fiber";
-import * as THREE from "three";
 import { useRecoilState } from "recoil";
 import {
   findObjectGatherState,
@@ -19,7 +18,6 @@ function BoardUT(props) {
   );
   const [memoriesGather, setMemoriesGather] =
     useRecoilState(memoriesGatherState);
-  console.log(findObjectGather);
   const todowith = useLoader(TextureLoader, "/assets/textures/우탐1.png");
   return (
     <>

@@ -36,7 +36,10 @@ import { QuestModal } from "../component/QuestModal";
 import { FindProjectModal } from "../component/Quest/FindProjectModal";
 
 function HouseInMesh(props: JSX.IntrinsicElements["mesh"]) {
-  const gltf = useLoader(GLTFLoader, "/rick_and_morty_garage_fan_art.glb");
+  const gltf = useLoader(
+    GLTFLoader,
+    "/assets/glb/rick_and_morty_garage_fan_art.glb"
+  );
   const [modalGather, setmodalGather] = useRecoilState(modalGatherState);
   const [findObjectGather, setFindObjectGather] = useRecoilState(
     findObjectGatherState

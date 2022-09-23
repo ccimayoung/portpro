@@ -1,7 +1,5 @@
 import { useNavigate } from "react-router";
-import { useRecoilState } from "recoil";
-import styled, { keyframes } from "styled-components";
-import { modalGatherState } from "../recoil/store";
+import styled from "styled-components";
 import { EvKoreanFont } from "../style/EvStyle";
 
 export const HouseInGoBox = styled.div`
@@ -25,7 +23,6 @@ export const ImgContent = styled.img`
 `;
 
 export const HouseGoMenu = () => {
-  const [modalGather, setmodalGather] = useRecoilState(modalGatherState);
   const nav = useNavigate();
 
   return (

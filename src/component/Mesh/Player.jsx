@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState, useMemo } from "react";
+import React, { useEffect } from "react";
 import { useLoader, useFrame, useThree } from "@react-three/fiber";
-import { OrbitControls, useGLTF } from "@react-three/drei";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import * as THREE from "three";
 import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls";
@@ -53,13 +52,13 @@ const Player = (props) => {
     ]);
   }, [modalGather]);
 
-  const playerGltf = useLoader(GLTFLoader, "/캐릭터.glb");
+  const playerGltf = useLoader(GLTFLoader, "/assets/glb/캐릭터.glb");
   const playerMesh = playerGltf.scene.children[0];
   const playerActions = [];
   const playerMixer = new THREE.AnimationMixer(playerMesh);
   const playerSpeed = 0.02;
 
-  const catGltf = useLoader(GLTFLoader, "/cat.glb");
+  const catGltf = useLoader(GLTFLoader, "/assets/glb/cat.glb");
   const catMesh = catGltf.scene.children[0];
   const catSizeByPlayer = 830;
   const catActions = [];
@@ -255,7 +254,6 @@ const Player = (props) => {
     }
 
     if (keyController.keys["KeyG"]) {
-      console.log(playerMesh.position);
       if (
         playerMesh.position.z > -7.3 &&
         playerMesh.position.z < -3.3 &&

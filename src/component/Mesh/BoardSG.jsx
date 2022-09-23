@@ -20,7 +20,6 @@ function BoardSG(props) {
     useRecoilState(memoriesGatherState);
 
   const sg = useLoader(TextureLoader, "/assets/textures/브릿지게임1.png");
-  console.log(findObjectGather);
   return (
     <>
       <Select enabled={hover}>

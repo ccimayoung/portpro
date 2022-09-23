@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import React from "react";
-
 import {
   EvFontBox,
   EvKoreanFont,
@@ -39,20 +38,6 @@ const BoxWrap = styled.div`
   background-position: center;
   overflow-y: scroll;
   position: relative;
-  ::-webkit-scrollbar {
-    display: none;
-  }
-  z-index: 5;
-`;
-
-const WordBox = styled.div`
-  margin: 100px 80px 0px 220px;
-  display: flex;
-  flex-direction: column;
-  width: 600px;
-  height: 180px;
-  /* background-color: blue; */
-  overflow-y: scroll;
   ::-webkit-scrollbar {
     display: none;
   }

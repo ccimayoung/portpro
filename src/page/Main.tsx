@@ -6,7 +6,6 @@ import {
 import { Suspense } from "react";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { Cat } from "../component/Mesh/Cat";
 import Player from "../component/Mesh/Player";
 import { BottomMenu } from "../component/BottomMenu";
 import { BagModal } from "../component/BagModal";
@@ -35,7 +34,7 @@ import { PenguinQuestModal } from "../component/Quest/PenguinQuestModal";
 import { FinishModal } from "../component/FinishModal";
 
 function RoadMesh(props: JSX.IntrinsicElements["mesh"]) {
-  const gltf = useLoader(GLTFLoader, "/adventure_map.glb");
+  const gltf = useLoader(GLTFLoader, "/assets/glb/adventure_map.glb");
   const roadMesh = gltf.scene.children[0];
   roadMesh.rotation.z = Math.PI;
   roadMesh.position.y = -450;
@@ -86,7 +85,6 @@ export const Main = () => {
             <Player canvasProp={canvas} />
           </Suspense>
           <Suspense fallback={null}>
-            <Cat />
             {questProgressGather.q1TunaCan !== "finish" && <CatQuestionMark />}
             <FoxQuestionMark />
           </Suspense>

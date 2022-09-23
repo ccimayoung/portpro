@@ -1,11 +1,7 @@
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import React from "react";
-import {
-  findObjectGatherState,
-  memoriesGatherState,
-  modalGatherState,
-} from "../../recoil/store";
+import { modalGatherState } from "../../recoil/store";
 import {
   EvColumnBox,
   EvFontBox,
@@ -63,11 +59,6 @@ export const QuitImg = styled.img`
 
 export const UtModal = () => {
   const [modalGather, setmodalGather] = useRecoilState(modalGatherState);
-  const [findObjectGather, setFindObjectGather] = useRecoilState(
-    findObjectGatherState
-  );
-  const [memoriesGather, setMemoriesGather] =
-    useRecoilState(memoriesGatherState);
 
   return (
     <>

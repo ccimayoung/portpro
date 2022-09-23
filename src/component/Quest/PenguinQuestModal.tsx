@@ -7,10 +7,7 @@ import {
   questGatherState,
   questProgressGatherState,
 } from "../../recoil/store";
-
 import { EvBtnAble, EvKoreanFont } from "../../style/EvStyle";
-
-import { useNavigate } from "react-router";
 
 const Slide = keyframes`
     0% {
@@ -157,7 +154,6 @@ export const PenguinWord = () => {
   const [memoriesGather, setMemoriesGather] =
     useRecoilState(memoriesGatherState);
 
-  const nav = useNavigate();
   return (
     <>
       {memoriesGather.photoMemory &&

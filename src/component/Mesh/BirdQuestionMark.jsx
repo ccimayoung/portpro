@@ -5,7 +5,7 @@ import { TextureLoader } from "three/src/loaders/TextureLoader";
 
 function BirdQuestionMark(props) {
   // load GLTF
-  const gltf = useLoader(GLTFLoader, "/question_icon_bird.glb");
+  const gltf = useLoader(GLTFLoader, "/assets/glb/question_icon_bird.glb");
   const questionMesh = gltf.scene.children[0];
   questionMesh.rotation.x = Math.PI / 180;
   questionMesh.position.y = -3.7;

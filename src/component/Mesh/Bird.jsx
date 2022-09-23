@@ -5,7 +5,7 @@ import * as THREE from "three";
 
 function Bird(props) {
   // load GLTF
-  const gltf = useLoader(GLTFLoader, "/bird.glb");
+  const gltf = useLoader(GLTFLoader, "/assets/glb/bird.glb");
   const birdSizeByPlayer = 3.5;
   const foxMesh = gltf.scene.children[0];
 

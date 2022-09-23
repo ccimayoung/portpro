@@ -1,11 +1,7 @@
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import React from "react";
-import {
-  findObjectGatherState,
-  memoriesGatherState,
-  modalGatherState,
-} from "../../recoil/store";
+import { modalGatherState } from "../../recoil/store";
 import {
   EvColumnBox,
   EvFontBox,

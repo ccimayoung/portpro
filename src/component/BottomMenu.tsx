@@ -58,7 +58,6 @@ export const BottomMenu = () => {
   const url = window.location.href;
   const lastUrl = url.split("/");
   const find = lastUrl[lastUrl.length - 1];
-  console.log(find);
   const [modalGather, setmodalGather] = useRecoilState(modalGatherState);
   const [questProgressGather, setQuestProgressGather] = useRecoilState(
     questProgressGatherState

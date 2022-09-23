@@ -1,8 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { useRecoilState } from "recoil";
-import React, { useState } from "react";
-import { bagGatherState, modalGatherState } from "../recoil/store";
-import TunaCan1 from "./Mesh/TunaCan1";
+import React from "react";
+import { modalGatherState } from "../recoil/store";
 
 const Slide = keyframes`
     0% {
