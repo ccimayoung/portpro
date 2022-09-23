@@ -232,23 +232,23 @@ const Player = (props) => {
       }
       playerJump = false;
 
-      const catJumpTimer = setTimeout(() => {
-        if (
-          catMesh.position.y <= catSizeByPlayer &&
-          !catJump &&
-          questProgressGather.q1TunaCan === "finish"
-        ) {
-          catMesh.position.y += 0.03 * catSizeByPlayer;
+      // const catJumpTimer = setTimeout(() => {
+      if (
+        catMesh.position.y <= catSizeByPlayer &&
+        !catJump &&
+        questProgressGather.q1TunaCan === "finish"
+      ) {
+        catMesh.position.y += 0.03 * catSizeByPlayer;
 
-          const jumpTimer = setTimeout(() => {
-            catJump = true;
-            catMesh.position.y -= 0.03 * catSizeByPlayer;
+        const jumpTimer = setTimeout(() => {
+          catJump = true;
+          catMesh.position.y -= 0.03 * catSizeByPlayer;
 
-            clearTimeout(jumpTimer);
-          }, 300);
-        }
-        clearTimeout(catJumpTimer);
-      }, 500);
+          clearTimeout(jumpTimer);
+        }, 300);
+      }
+      //   clearTimeout(catJumpTimer);
+      // }, 100);
 
       catJump = false;
     }
