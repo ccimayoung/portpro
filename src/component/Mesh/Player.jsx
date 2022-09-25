@@ -42,6 +42,8 @@ const Player = (props) => {
   const controls = new PointerLockControls(camera, renderer.domElement);
 
   controls.pointerSpeed = 0.15;
+  controls.maxPolarAngle = THREE.MathUtils.degToRad(135);
+  controls.minPolarAngle = Math.PI / 4;
   const keyController = new Keycontroller();
 
   useEffect(() => {

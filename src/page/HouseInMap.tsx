@@ -125,14 +125,11 @@ export const HouseInMap = () => {
             {!findObjectGather.tonaCan1Find && <TunaCan1 />}
             {!findObjectGather.tonaCan2Find && <TunaCan2 />}
           </Suspense>
-          <OrbitControls />
+          <OrbitControls
+            minPolarAngle={Math.PI / 4}
+            maxPolarAngle={(Math.PI / 180) * 135}
+          />
         </RecoilBridge>
-
-        <Selection>
-          <EffectComposer multisampling={8} autoClear={false}>
-            <Outline blur visibleEdgeColor={1} edgeStrength={100} width={500} />
-          </EffectComposer>
-        </Selection>
       </Canvas>
       <BottomMenu />
       <MemoriesModal />
